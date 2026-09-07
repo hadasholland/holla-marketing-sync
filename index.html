@@ -614,14 +614,16 @@
 
   .steps > li {
     counter-increment: st;
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 14px;
-    align-items: start;
+    position: relative;
+    padding-left: 44px;
+    max-width: 66ch;
   }
 
   .steps > li::before {
     content: counter(st);
+    position: absolute;
+    left: 0;
+    top: 1px;
     font-family: var(--mono);
     font-size: 11.5px;
     font-weight: 700;
@@ -632,7 +634,6 @@
     height: 28px;
     display: grid;
     place-items: center;
-    margin-top: 1px;
   }
 
   .steps .what { font-weight: 700; display: block; }
@@ -752,8 +753,6 @@
         <li><input type="checkbox" id="c1c"><label for="c1c">The two weekly email slots — what each one is for, so we're not inventing the theme every week.</label></li>
         <li><input type="checkbox" id="c1d"><label for="c1d">Honest capacity check: is 2 emails + 5 posts a week + everything below realistic in your hours? If not, we cut something now rather than discover it in three weeks.</label></li>
       </ul>
-      <label class="notes-label" for="n1">Notes</label>
-      <textarea id="n1" placeholder="Agreed rhythm, owner, start week…"></textarea>
     </div>
   </section>
 
@@ -781,8 +780,6 @@
         <li><input type="checkbox" id="c2c"><label for="c2c">Whether we move any current creators to paid for usage rights, and which ones are worth it.</label></li>
         <li><input type="checkbox" id="c2d"><label for="c2d">Brainstorm slot for hook and video concepts — book it now, don't leave it as "sometime."</label></li>
       </ul>
-      <label class="notes-label" for="n2">Notes</label>
-      <textarea id="n2" placeholder="Creator names, owner, dates…"></textarea>
     </div>
   </section>
 
@@ -811,8 +808,6 @@
         <li><input type="checkbox" id="c3d"><label for="c3d">Long-form: where the footage comes from, and how much of the paid tutorials we're willing to give away free.</label></li>
         <li><input type="checkbox" id="c3e"><label for="c3e">Ask Mhay what she learned from the earlier YouTube run before we repeat it.</label></li>
       </ul>
-      <label class="notes-label" for="n3">Notes</label>
-      <textarea id="n3" placeholder="Owners, first upload date…"></textarea>
     </div>
   </section>
 
@@ -849,8 +844,6 @@
         <li><input type="checkbox" id="c4c"><label for="c4c">A number to aim at, and the date we check against it.</label></li>
         <li><input type="checkbox" id="c4d"><label for="c4d">Check for unanswered European enquiries and reopen them.</label></li>
       </ul>
-      <label class="notes-label" for="n4">Notes</label>
-      <textarea id="n4" placeholder="Markets, names, target, first step…"></textarea>
     </div>
   </section>
 
@@ -874,8 +867,6 @@
         <li><input type="checkbox" id="c5c"><label for="c5c">What we expect to come home with — how many tutorials, how many Reels, how much BTS.</label></li>
         <li><input type="checkbox" id="c5d"><label for="c5d">Who edits it afterwards, and when they get the footage.</label></li>
       </ul>
-      <label class="notes-label" for="n5">Notes</label>
-      <textarea id="n5" placeholder="Shot ideas, deliverables, owner…"></textarea>
     </div>
   </section>
 
@@ -1161,8 +1152,6 @@
         <li><input type="checkbox" id="c6i"><label for="c6i">Revenue per recipient becomes a standing number we report on.</label></li>
         <li><input type="checkbox" id="c6j"><label for="c6j">When we review it all together.</label></li>
       </ul>
-      <label class="notes-label" for="n6">Notes — including anything you see differently above</label>
-      <textarea id="n6" placeholder="Owner, dates, what we're building first…"></textarea>
     </div>
   </section>
 
@@ -1252,14 +1241,11 @@ Once your order arrives, we'll activate your ambassador account with your own 15
         <li><input type="checkbox" id="c7e"><label for="c7e">Who films the Reel, and when it goes out.</label></li>
         <li><input type="checkbox" id="c7f"><label for="c7f">How we judge it: comments, DMs opened, clicks, sales.</label></li>
       </ul>
-      <label class="notes-label" for="n7">Notes</label>
-      <textarea id="n7" placeholder="Offer, trigger word, tool, date…"></textarea>
     </div>
   </section>
 
   <footer>
     <p>Email figures: Klaviyo flow reporting, Placed Order conversion metric — Aug 1 – Sep 7 2026 for the monthly funnel, last 90 days for the comparison table. Benchmarks: <a class="src" href="https://www.klaviyo.com/blog/abandoned-cart-benchmarks">Klaviyo abandoned cart benchmark report</a>.</p>
-    <p>Ticks and notes on this page are saved in your own browser only — they aren't shared with anyone else who opens the link.</p>
   </footer>
 
 </div>
@@ -1282,13 +1268,6 @@ Once your order arrives, we'll activate your ambassador account with your own 15
       });
     });
 
-    document.querySelectorAll('textarea').forEach(function (area) {
-      if (typeof state[area.id] === 'string') area.value = state[area.id];
-      area.addEventListener('input', function () {
-        state[area.id] = area.value;
-        save();
-      });
-    });
   })();
 </script>
 </body>
