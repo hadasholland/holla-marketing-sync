@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Comment-to-DM Funnel</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+
+<style>
+  :root {
+    --ground: #FDFBF7;
+    --surface: #FFFFFF;
+    --surface-warm: #F4E9DA;
+    --ink: #151515;
+    --ink-soft: #6B6259;
+    --ink-faint: #9A9086;
+    --line: #E7E0D4;
+    --line-strong: #D8CEBD;
+    --accent: #D43C3C;
+    --accent-soft: #FBEDEB;
+    --good: #35735A;
+    --good-soft: #EAF2ED;
+    --good-line: #B8D5C6;
+    --shadow: 0 1px 2px rgba(21, 21, 21, .04), 0 8px 24px -16px rgba(21, 21, 21, .18);
+
+    --display: "Bebas Neue", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --body: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141210;
+      --surface: #1C1917;
+      --surface-warm: #241F1A;
+      --ink: #F2EDE5;
+      --ink-soft: #A9A096;
+      --ink-faint: #7A7268;
+      --line: #302A24;
+      --line-strong: #443C34;
+      --accent: #EE7070;
+      --accent-soft: #33201F;
+      --good: #6FBE9A;
+      --good-soft: #1B2A23;
+      --good-line: #2E4A3C;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #141210;
+    --surface: #1C1917;
+    --surface-warm: #241F1A;
+    --ink: #F2EDE5;
+    --ink-soft: #A9A096;
+    --ink-faint: #7A7268;
+    --line: #302A24;
+    --line-strong: #443C34;
+    --accent: #EE7070;
+    --accent-soft: #33201F;
+    --good: #6FBE9A;
+    --good-soft: #1B2A23;
+    --good-line: #2E4A3C;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 56px 0 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(46px, 11vw, 76px);
+    line-height: .92;
+    letter-spacing: .01em;
+    margin: 14px 0 16px;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    max-width: 60ch;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .meta-row b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- agenda index ---------- */
+
+  .index {
+    margin: 32px 0 8px;
+    padding: 22px 24px;
+    background: var(--surface-warm);
+    border-radius: 14px;
+  }
+
+  .index h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .index ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2px;
+    counter-reset: idx;
+  }
+
+  .index li { counter-increment: idx; }
+
+  .index a {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 5px 0;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .index a::before {
+    content: counter(idx, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    flex: 0 0 auto;
+  }
+
+  .index a:hover .lbl,
+  .index a:focus-visible .lbl { border-bottom: 1px solid var(--accent); }
+
+  .index .tag {
+    margin-left: auto;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex: 0 0 auto;
+    font-weight: 700;
+  }
+
+  /* ---------- opening ---------- */
+
+  .opening {
+    margin: 36px 0 0;
+    padding: 26px 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--ink);
+    border-radius: 0 0 14px 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .op-eyebrow {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .op-lede {
+    font-size: 18.5px;
+    line-height: 1.5;
+    max-width: 62ch;
+  }
+
+  .opening p { color: var(--ink); }
+
+  .op-close {
+    margin: 20px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--display);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: .02em;
+  }
+
+  /* ---------- decisions ---------- */
+
+  .decided {
+    margin: 28px 0 0;
+    padding: 24px 28px;
+    background: var(--good-soft);
+    border: 1px solid var(--good-line);
+    border-radius: 14px;
+  }
+
+  .dec-label {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .decided ul.points > li::before { background: var(--good); }
+
+  .dec-foot {
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--good-line);
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .decided a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--good);
+  }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding-top: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .sec-head {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+
+  .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    flex: 0 0 auto;
+    padding-top: 6px;
+  }
+
+  h2.sec-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 5.4vw, 38px);
+    line-height: 1.02;
+    letter-spacing: .015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .when {
+    margin-left: auto;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 8px;
+  }
+
+  h3 {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 30px 0 12px;
+  }
+
+  p { margin: 0 0 14px; max-width: 66ch; }
+
+  .lede { font-size: 18px; max-width: 62ch; }
+
+  ul.points {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 11px;
+    max-width: 66ch;
+  }
+
+  ul.points > li { padding-left: 20px; position: relative; }
+
+  ul.points > li::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: .68em;
+    width: 6px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  strong { font-weight: 700; }
+
+  section a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  section a:hover,
+  section a:focus-visible { background: var(--accent-soft); }
+
+  em.hl {
+    font-style: normal;
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+
+  /* ---------- decision blocks ---------- */
+
+  .decide {
+    margin: 22px 0 0;
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .decide > h3 { margin-top: 0; }
+
+  .checks { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+  .checks li { display: flex; gap: 11px; align-items: flex-start; }
+
+  .checks input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin: 5px 0 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .checks label { cursor: pointer; font-size: 15.5px; }
+
+  .checks input:checked + label {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .notes-label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 66px;
+    resize: vertical;
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  textarea::placeholder { color: var(--ink-faint); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- funnel strip ---------- */
+
+  .funnel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(102px, 1fr));
+    gap: 1px;
+    margin: 8px 0 12px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .funnel div {
+    background: var(--surface);
+    padding: 15px 14px;
+  }
+
+  .funnel .fig {
+    font-family: var(--display);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+  }
+
+  .funnel .lbl2 {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  .funnel div.zero { background: var(--accent-soft); }
+  .funnel div.zero .fig { color: var(--accent); }
+  .funnel div.zero .lbl2 { color: var(--accent); }
+
+  /* ---------- data table ---------- */
+
+  .table-scroll {
+    overflow-x: auto;
+    margin: 8px 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 620px;
+  }
+
+  th, td {
+    padding: 11px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  th:first-child, td:first-child {
+    text-align: left;
+    white-space: normal;
+    min-width: 168px;
+  }
+
+  thead th {
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface-warm);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.figure { font-family: var(--mono); font-size: 13.5px; }
+
+  .bench { color: var(--ink-soft); }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .pill.behind { background: var(--accent-soft); color: var(--accent); }
+  .pill.ok { background: var(--good-soft); color: var(--good); }
+
+  .caption {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    max-width: 70ch;
+  }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: var(--surface-warm);
+    border-radius: 12px;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout .k {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .owns {
+    margin: 20px 0;
+    padding: 18px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .owns p { margin: 0; max-width: 64ch; }
+
+  .win {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--good-line);
+    border-left: 3px solid var(--good);
+    border-radius: 0 12px 12px 0;
+    background: var(--good-soft);
+  }
+
+  .win-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .win ul.points > li::before { background: var(--good); }
+  .win p:last-child, .win ul:last-child { margin-bottom: 0; }
+
+  .warn {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .warn-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .warn p:last-child { margin-bottom: 0; }
+
+  .open-flag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* ---------- reference card ---------- */
+
+  .ref {
+    margin: 8px 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .ref-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    align-items: baseline;
+    padding: 13px 18px;
+    background: var(--surface-warm);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .ref-head b { color: var(--ink); font-size: 14px; }
+
+  .ref-body { padding: 16px 18px; }
+
+  .ref-body pre {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 15.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+
+  .steps {
+    counter-reset: st;
+    margin: 8px 0 20px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    max-width: 66ch;
+  }
+
+  .steps > li {
+    counter-increment: st;
+    position: relative;
+    padding-left: 44px;
+    max-width: 66ch;
+  }
+
+  .steps > li::before {
+    content: counter(st);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+  }
+
+  .steps .what { font-weight: 700; display: block; }
+
+  .steps blockquote {
+    margin: 8px 0 0;
+    padding: 11px 15px;
+    background: var(--surface-warm);
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .steps .gets {
+    display: block;
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  footer p { max-width: 70ch; }
+
+  a.src { color: var(--ink-soft); }
+
+  @media (max-width: 560px) {
+    .when { display: none; }
+    .index .tag { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">HOLLA Hair &nbsp;·&nbsp; Build spec</div>
+    <h1>The Comment-<br>to-DM Funnel</h1>
+    <p class="standfirst">A Reel that asks for a comment, an automation that answers in the DMs, and a rotation that keeps testing it. Aimed at people who have never heard of us.</p>
+    <div class="meta-row">
+      <span><b>Format</b> &nbsp;Trial Reels, non-followers only</span>
+      <span><b>Cadence</b> &nbsp;One variant every 1&ndash;2 days</span>
+      <span><b>Primary read</b> &nbsp;Comments per like</span>
+    </div>
+  </header>
+
+  <nav class="index" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#e1"><span class="lbl">The evidence &mdash; ten reels, measured</span></a></li>
+      <li><a href="#e2"><span class="lbl">What separates the winners from the template</span><span class="tag">Key</span></a></li>
+      <li><a href="#e3"><span class="lbl">The two DM flows I walked myself</span></a></li>
+      <li><a href="#e4"><span class="lbl">HOLLA's version &mdash; the one real decision</span><span class="tag">Decide</span></a></li>
+      <li><a href="#e5"><span class="lbl">The rotation &mdash; how we test it properly</span></a></li>
+      <li><a href="#e6"><span class="lbl">The automation build</span></a></li>
+      <li><a href="#e7"><span class="lbl">What we measure</span></a></li>
+    </ol>
+  </nav>
+
+  <section id="e1">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2 class="sec-title">The evidence — ten reels, measured</h2>
+    </div>
+
+    <p class="lede">The metric that matters here isn't likes. It's <em class="hl">comments per like</em> — because the comments are what buy the reach, and the reach is what puts us in front of strangers.</p>
+
+    <p>A normal Reel gets one comment per hundred likes. Look at what these get.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Account</th><th>The ask</th><th>Likes</th><th>Comments</th><th>Per like</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/DblnrGcuFrA/">@cooldownrunning</a></td>
+            <td>"we are looking for <strong>non-influencers and micro influencers</strong> to send PR to" · follow + comment</td>
+            <td class="figure">10,000</td>
+            <td class="figure">15,600</td>
+            <td class="figure"><strong>1.56</strong></td>
+          </tr>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/DcLxO_kJuIU/">@cocolifestyleresort</a></td>
+            <td>"Comment <strong>CABANA</strong> to collaborate with us and enjoy a <strong>6-day complimentary stay</strong>"</td>
+            <td class="figure">18,700</td>
+            <td class="figure">20,800</td>
+            <td class="figure"><strong>1.11</strong></td>
+          </tr>
+          <tr>
+            <td>@hola_natural</td>
+            <td>"we're opening <strong>paid</strong> collaborations for creators"</td>
+            <td class="figure">10,900</td>
+            <td class="figure">7,813</td>
+            <td class="figure">0.72</td>
+          </tr>
+          <tr>
+            <td>@heyshoptuli</td>
+            <td>"Comment 'collab' or DM us"</td>
+            <td class="figure">12,300</td>
+            <td class="figure">8,764</td>
+            <td class="figure">0.71</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/Dc0fFcVBcwe/">@stasshsociety</a></td>
+            <td>"AMBASSADOR OPPORTUNITY" · follow + comment + DM</td>
+            <td class="figure">2,502</td>
+            <td class="figure">1,677</td>
+            <td class="figure">0.67</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/DbWf1SZhB4m/">@diosafitofficial</a></td>
+            <td>"PR opportunity" · follow + comment + DM</td>
+            <td class="figure">10,300</td>
+            <td class="figure">5,823</td>
+            <td class="figure">0.57</td>
+          </tr>
+          <tr>
+            <td>@shopfirsthealth</td>
+            <td>"Pr opportunity!" · follow + comment + DM &nbsp;<em>(the one you sent first)</em></td>
+            <td class="figure">16,300</td>
+            <td class="figure">7,609</td>
+            <td class="figure">0.47</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/Dc7EEO_sLzw/">@shopfirsthealth</a></td>
+            <td>"Pr opportunity! ✨" · follow + comment + DM</td>
+            <td class="figure">6,635</td>
+            <td class="figure">2,454</td>
+            <td class="figure">0.37</td>
+          </tr>
+          <tr>
+            <td>@shopfirsthealth</td>
+            <td>"Ambassador opportunity! ✨" · follow + comment + DM</td>
+            <td class="figure">5,480</td>
+            <td class="figure">1,714</td>
+            <td class="figure">0.31</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/DbaV75vTPwJ/">@lovetaycandles</a></td>
+            <td>"PR opportunity! 💌" · follow + comment + DM</td>
+            <td class="figure">6,522</td>
+            <td class="figure">296</td>
+            <td class="figure">0.05</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="caption">Counts read directly off each Reel on Sept 7 2026. Same mechanic, and a <strong>30× spread</strong> in how well it works. That spread is the whole opportunity — it means the format isn't magic, the wording is.</p>
+  </section>
+
+  <section id="e2">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2 class="sec-title">What separates the winners from the template</h2>
+      <span class="when">Key</span>
+    </div>
+
+    <p>Seven of these ten run the identical script: <em>"PR opportunity — follow us, comment 'interested', send this post to our DMs."</em> They cluster around 0.4 comments per like. The two at the top both broke the script, in different ways.</p>
+
+    <div class="win">
+      <p class="win-label">1 · Tell them they qualify</p>
+      <p>The best performer says <strong>"we are looking for non-influencers and micro influencers."</strong> Everyone else says "PR opportunity", which the person with 400 followers reads as <em>not for me.</em> One clause removes the only objection that matters, and it more than triples the response.</p>
+      <p><strong>For us:</strong> a hairstylist with 800 followers is exactly who we want, and she assumes she isn't. Say it out loud.</p>
+    </div>
+
+    <div class="win">
+      <p class="win-label">2 · One specific word, one nameable prize</p>
+      <p>"Comment <strong>CABANA</strong> and enjoy a 6-day complimentary stay" beats "comment interested" — twice over. The word is memorable and makes the comment feel like a key rather than a queue ticket. And the prize is a picture in your head, not a category. <strong>"A 6-day stay"</strong> lands; <strong>"a PR package"</strong> doesn't.</p>
+    </div>
+
+    <div class="win">
+      <p class="win-label">3 · Two asks, not three</p>
+      <p>Both leaders asked for <strong>follow + comment</strong>. Every reel that also demanded "send this post to our DMs" sat in the bottom half. <em>This revises what I told you earlier</em> — I read the third ask as clever, because it opens a messaging window. The numbers say it costs more in drop-off than it earns. Get the comment first; the DM window can be opened by the automation's own reply.</p>
+    </div>
+
+    <div class="win">
+      <p class="win-label">4 · Quiet beats loud</p>
+      <p>The 1.11 reel opens with <strong>"Hopefully reach the right people ✨"</strong> — almost apologetic. The 0.05 reel shouts "PR OPPORTUNITY! 💌". On a platform where every third post is shouting, the understated line reads as real.</p>
+    </div>
+
+    <div class="callout">
+      <p><span class="k">And one thing nobody paid for.</span>In the comments of the CABANA reel: <em>"@ba.keenia COME &amp; SEE THISSS! YOU'RE A GREAT FIT 💅🏽"</em> — people tag their friends. Every tag is a free impression to exactly the right person. Worth writing the caption so tagging feels natural.</p>
+    </div>
+  </section>
+
+  <section id="e3">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2 class="sec-title">The two DM flows I walked myself</h2>
+    </div>
+
+    <h3>@shopfirsthealth — the complete flow</h3>
+
+    <ol class="steps">
+      <li>
+        <span class="what">The Reel promises a free PR package.</span>
+        On screen: "Brand so small — if you send this reel … we will send you a PR package."
+      </li>
+      <li>
+        <span class="what">Automatic DM — no package. An "ambassador team" instead.</span>
+        <blockquote>Hello! Thanks for reaching out! We'd love to invite you to our First Health Ambassador Team. As a welcome gift, you'll get an extra 40% off on top of our up to 70% off Summer Sale, plus a free gift with your first order. Would you like the code?</blockquote>
+        <span class="btn-ghost">Yes! I'm interested.</span>
+        <span class="gets">A tap, not typing. Almost nobody drops out at a button.</span>
+      </li>
+      <li>
+        <span class="what">Second DM — the email address.</span>
+        <blockquote>Sweet! Also, what's your email? I'll add you to our VIP Ambassador list</blockquote>
+        <span class="gets">The comment becomes a subscriber. "VIP Ambassador list" makes handing it over feel like an upgrade rather than a form.</span>
+      </li>
+      <li>
+        <span class="what">Third DM — the code, on a clock, plus the terms.</span>
+        <blockquote>Use code CT40 at checkout for an extra 40% off. Link is in our bio. Code is valid for 72 hrs. Once your order arrives, we'll activate your ambassador account with your own 15% commission code, exclusive discounts, and access to future gifted collabs. Just tag us in your first post…</blockquote>
+        <span class="btn-ghost">Shop now</span>
+        <span class="gets">A 72-hour deadline, and ambassador status activates only <em>after the order arrives</em> — so you buy first. Off one Reel they collect an order, an email, a tagged post and a new affiliate.</span>
+      </li>
+    </ol>
+
+    <h3>@cocolifestyleresort — what happened when I tried it</h3>
+
+    <div class="warn">
+      <p class="warn-label">⚠ I commented CABANA and nothing came back</p>
+      <p>I posted the trigger word on their Reel from our account and waited. <strong>No automated DM arrived</strong> — not in the inbox, not in message requests. Their caption also said "Follow us at @cocolifestyleresort for more", and we didn't follow.</p>
+      <p>So either the automation is switched off now, or <strong>it only fires for people who follow first.</strong> Either way they just lost a lead from a reel with 20,800 comments on it.</p>
+      <p><strong>The rule that comes out of this:</strong> ask for the follow, never gate the DM on it. If someone comments, they hear back — full stop. And we test our own trigger from a phone that doesn't follow us before any of this goes live.</p>
+    </div>
+  </section>
+
+  <section id="e4">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2 class="sec-title">HOLLA's version — the one real decision</h2>
+      <span class="when">Decide</span>
+    </div>
+
+    <p class="lede">Here's the honest problem. <em class="hl">Every single one of these ten reels offers the same thing: free product, or a path to becoming an ambassador.</em> That's where the pull comes from. And that pull is aimed at creators, not at customers.</p>
+
+    <p>You want this aimed at the at-home consumer, without giving product away free, and without crossing into clickbait. All three of those are right — and together they take away the exact thing that makes the format work. So the offer has to be genuinely worth typing a word for, and it has to arrive in the DM within seconds of the comment. Two coherent ways to do that:</p>
+
+    <div class="win">
+      <p class="win-label">Option A — point it at creators. My recommendation.</p>
+      <p>This is the play the evidence actually supports, and <strong>we already decided the offer.</strong> In the meeting we agreed to move creator outreach to an ambassador offer — 40% off plus a real commission path, instead of gifting product. That is precisely the offer this format was built to distribute.</p>
+      <p>Nothing has to be invented. The Reel says we're looking for bridal and event hairstylists — <em>including small accounts</em> — the DM explains the ambassador offer, and the promise matches the delivery exactly. No clickbait, because we're not pretending it's free.</p>
+      <p>It also feeds two things we need anyway: the European creator bench, and content we can use.</p>
+    </div>
+
+    <div class="win">
+      <p class="win-label">Option B — point it at the home user, with a different pull</p>
+      <p>Harder, because a home user doesn't want to be an ambassador. It needs something she'd type a word for and that we can hand over instantly: a specific tutorial, a styling guide, a "which tool for your hair" answer. The give has to be real and immediate — not a discount code dressed up as a gift.</p>
+      <p>If we go here, the Reel has to promise exactly that thing and the DM has to deliver exactly that thing. The moment it becomes "comment WAVES" → "here's 10% off", we're the reel that promised a PR package and sent a coupon.</p>
+    </div>
+
+    <div class="decide">
+      <h3>Decide</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="d1"><label for="d1">A or B. If A, this ships this month off a decision we've already made.</label></li>
+        <li><input type="checkbox" id="d2"><label for="d2">The trigger word — one word, memorable, ours.</label></li>
+        <li><input type="checkbox" id="d3"><label for="d3">The exact thing that arrives in the DM, written out before anything is filmed.</label></li>
+        <li><input type="checkbox" id="d4"><label for="d4">Whether we capture an email in the DM, and which Klaviyo list it lands on.</label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="e5">
+    <div class="sec-head">
+      <span class="num">05</span>
+      <h2 class="sec-title">The rotation — how we test it properly</h2>
+    </div>
+
+    <p class="lede">Your instinct is right: <em class="hl">run it as a Trial Reel, again and again.</em> Trial Reels go only to people who don't follow us — which is exactly the audience this is for — and each one gets its own fresh sample. That makes them a genuine test vehicle, not just a re-post.</p>
+
+    <div class="warn">
+      <p class="warn-label">⚠ But rotate one thing at a time</p>
+      <p>Three or four variants live at once, each different in video <em>and</em> hook <em>and</em> flow, teaches us nothing — when one wins we won't know which part won. One variable per round. It costs a few days and it's the difference between testing and guessing.</p>
+    </div>
+
+    <h3>The order to test in</h3>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Round</th><th>What varies</th><th>What stays fixed</th><th>Why this order</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1 · The words</strong><br>3 variants, ~6 days</td>
+            <td>The caption and the on-screen line. One "you qualify" version, one "specific word + nameable prize" version, one quiet-opener version.</td>
+            <td>Same footage. Same DM flow.</td>
+            <td>The evidence says the wording drives the 30× spread — not the footage. Test the biggest lever first.</td>
+          </tr>
+          <tr>
+            <td><strong>2 · The video</strong><br>3 variants, ~6 days</td>
+            <td>The footage and the first three seconds.</td>
+            <td>Round 1's winning caption. Same DM flow.</td>
+            <td>Now we know what to say, we find out what to show while saying it.</td>
+          </tr>
+          <tr>
+            <td><strong>3 · The flow</strong><br>2 variants, ~4 days</td>
+            <td>The DM sequence: two asks vs three, where the email capture sits, button replies vs typed.</td>
+            <td>The winning reel from rounds 1 and 2.</td>
+            <td>Only worth optimising once something is reliably driving comments.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ul class="points">
+      <li><strong>One variant live at a time</strong>, posted every 1&ndash;2 days as you said. Three variants is one round and about a week — so we learn something real every week.</li>
+      <li><strong>Vary the footage across rounds anyway.</strong> Posting a near-identical video daily reads as repetitive to the platform. Round 1 keeps the footage fixed across its three variants, then it changes.</li>
+      <li><strong>Log every run in one place</strong> before the next goes up: which variant, when, views, likes, comments, DMs, clicks, sales. Without the log the rotation becomes noise.</li>
+      <li><strong>Kill fast.</strong> Anything under ~0.3 comments per like is a losing variant. Don't nurse it.</li>
+    </ul>
+  </section>
+
+  <section id="e6">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <h2 class="sec-title">The automation build</h2>
+    </div>
+
+    <div class="warn">
+      <p class="warn-label">⚠ First: check whether we already have the tool</p>
+      <p>The Social Media Planner board already has a column called <em>"Keyword / CTA — ManyChat keyword"</em>. So ManyChat may already be paid for. <strong>Confirm that before buying anything.</strong> Metricool can't do comment-to-DM.</p>
+    </div>
+
+    <h3>What the automation has to do</h3>
+    <ul class="points">
+      <li><strong>Trigger on the keyword</strong> in a comment on a specific Reel — not on any comment, so ordinary conversation doesn't fire it.</li>
+      <li><strong>Reply publicly in the thread too</strong>, briefly. Coco's brand replies inside the comment threads, and every reply is another comment on the post. Free reach.</li>
+      <li><strong>Send the DM within seconds</strong>, whether or not they follow us. Never gate it on the follow.</li>
+      <li><strong>Use a button reply</strong> for the first response, so step one is a tap.</li>
+      <li><strong>Ask for the email</strong> as the second message, framed as joining something rather than filling a form. Push it straight to a dedicated Klaviyo list so the follow-up isn't manual.</li>
+      <li><strong>Deliver the thing we promised</strong>, exactly as promised, in the message right after.</li>
+      <li><strong>Have a fallback</strong> for anyone who replies something unexpected — a human picks it up rather than the thread dying.</li>
+      <li><strong>Test it from a phone that doesn't follow us</strong> before it goes live. This is the step Coco appears to have skipped.</li>
+    </ul>
+  </section>
+
+  <section id="e7">
+    <div class="sec-head">
+      <span class="num">07</span>
+      <h2 class="sec-title">What we measure</h2>
+    </div>
+
+    <ul class="points">
+      <li><strong>Comments per like</strong> — the primary read, and the one number that decides which variant wins. Benchmark from these ten: the template gets ~0.4, a good one gets above 1.0.</li>
+      <li><strong>Views from non-followers</strong> — the whole point of a Trial Reel. If this isn't climbing, the reach engine isn't working regardless of the comments.</li>
+      <li><strong>Then the funnel:</strong> comments → DMs opened → emails captured → link clicks → orders. Each step is a number, and the one that leaks is the one we fix next.</li>
+      <li><strong>Emails captured</strong> is the asset that outlives the reel. Even a variant that sells nothing is worth running if it fills the list.</li>
+      <li><strong>Follower growth</strong> as a secondary read — we're asking for the follow, so it should move.</li>
+    </ul>
+
+    <div class="callout">
+      <p>One honest caveat: none of the ten reels tells us what any of this <em>sold.</em> Comments and reach are public; revenue isn't. We'll be the only ones who know whether it converts, which is exactly why the log matters from the first run.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Reel metrics read directly from Instagram on Sept 7 2026. The @shopfirsthealth DM sequence is the real conversation, from screenshots. The @cocolifestyleresort test was run from @hollastylist the same day — the comment posted, no automated reply arrived.</p>
+    <p>Companion doc: <a class="src" href="../">the September Marketing Sync</a>.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var KEY = 'holla-reel-funnel';
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (box) {
+      if (state[box.id] === true) box.checked = true;
+      box.addEventListener('change', function () { state[box.id] = box.checked; save(); });
+    });
+  })();
+</script>
+</body>
+</html>
