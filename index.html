@@ -22,6 +22,7 @@
     --accent-soft: #FBEDEB;
     --good: #35735A;
     --good-soft: #EAF2ED;
+    --good-line: #B8D5C6;
     --shadow: 0 1px 2px rgba(21, 21, 21, .04), 0 8px 24px -16px rgba(21, 21, 21, .18);
 
     --display: "Bebas Neue", "Haettenschweiler", "Arial Narrow", sans-serif;
@@ -43,6 +44,7 @@
       --accent-soft: #33201F;
       --good: #6FBE9A;
       --good-soft: #1B2A23;
+      --good-line: #2E4A3C;
       --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
     }
   }
@@ -60,6 +62,7 @@
     --accent-soft: #33201F;
     --good: #6FBE9A;
     --good-soft: #1B2A23;
+    --good-line: #2E4A3C;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
   }
 
@@ -504,6 +507,46 @@
 
   .owns p { margin: 0; max-width: 64ch; }
 
+  .win {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--good-line);
+    border-left: 3px solid var(--good);
+    border-radius: 0 12px 12px 0;
+    background: var(--good-soft);
+  }
+
+  .win-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .win ul.points > li::before { background: var(--good); }
+  .win p:last-child, .win ul:last-child { margin-bottom: 0; }
+
+  .warn {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .warn-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .warn p:last-child { margin-bottom: 0; }
+
   .open-flag {
     display: inline-block;
     font-size: 11px;
@@ -928,45 +971,153 @@
 
     <h3>Problem one — the wiring</h3>
     <ul class="points">
-      <li><strong>The send counts don't make sense.</strong> Email #1 should always reach the most people, then fewer at each step. In abandoned checkout it's 23 → 98 → 80 for the month, and 49 → 152 → 125 over 90 days. Most people are not getting the first email at all. That needs explaining before anything else.</li>
+      <li><strong>Most people never get the first email.</strong> It should always reach the most people, then fewer at each step. Instead it's 23 → 98 → 80 for the month, and 49 → 152 → 125 over 90 days.</li>
+      <li><strong>My best guess, and it's checkable in five minutes:</strong> Smart Sending is switched ON for email 1 and OFF for email 2. Smart Sending skips anyone who has had an email from us recently — so at the highest-intent moment, an hour after they abandoned, most people get skipped, while the generic email that follows always goes out. That is exactly backwards. Please verify it and tell me if I'm wrong.</li>
       <li><strong>Two live flows share the same name</strong> — "Abandoned Cart Reminder · Shopify Added to Cart Trigger" exists twice. Some people may be getting doubled up, and one of the two is losing subscribers at 5%.</li>
       <li><strong>The first checkout email loses 4% of the people who receive it.</strong> For a first touch that is very high.</li>
     </ul>
 
-    <h3>Problem two — the copy</h3>
-    <ul class="points">
-      <li><strong>92 people opened these emails last month and exactly one clicked.</strong> Those people received it, opened it, read it and did nothing. No wiring fix changes that number — that's the email itself.</li>
-      <li><strong>The flow closest to the money performs worst.</strong> Browse abandonment — people who only looked — beats its benchmark. Abandoned checkout, people who nearly paid, returns almost nothing. The audience is warmer and the result is worse, which points straight at what we're saying to them.</li>
-      <li><strong>Our best email already exists.</strong> Browse abandonment email #1 returns $4.35 per recipient over 90 days — the strongest email in the account. Before rebuilding anything, work out what that one does differently.</li>
-    </ul>
+    <h3>Problem two — the copy. Here's what I see</h3>
+
+    <p>92 people received these emails last month, opened them, read them and did nothing. No wiring fix changes that number. So I went through all three emails, and the browse abandonment email that <em>does</em> work, and compared them. This is my read — push back where you disagree.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>What the email says now</th><th>Why I think it doesn't work</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Email 2</strong><br><em>"Why Stylists Keep Coming Back for Holla"</em></td>
+            <td>A brand email, not a cart email — and it's the one that reaches the most people. It never mentions they left something behind. Worse: <strong>it doesn't show their item at all.</strong> It pulls our generic bestsellers feed instead, so someone who nearly bought one specific tool gets shown three other products.</td>
+          </tr>
+          <tr>
+            <td><strong>Email 3</strong><br><em>"Last Chance Before it's Gone!"</em><br><em>"FINAL CALL — Your Cart Expires Soon"</em></td>
+            <td>Last chance for what? <strong>Nothing is expiring.</strong> No offer, no deadline, no reservation — so the urgency is invented, and anyone who clicks finds that out. It also shows the popular-products feed rather than their own cart. 125 people got it over 90 days and it sold nothing.</td>
+          </tr>
+          <tr>
+            <td><strong>All three</strong><br>Long copy about craft, investment and confidence</td>
+            <td>It reads like a landing page, not a nudge — and it answers the wrong questions. People stop at checkout over <strong>price, shipping cost, delivery time, warranty, or which size to pick.</strong> None of that appears anywhere.</td>
+          </tr>
+          <tr>
+            <td><strong>All three</strong><br>Top nav, collection links, community page, TikTok, YouTube, plus "Shop now" on every feed product</td>
+            <td>Seven or more ways out of an email that should have <strong>one</strong> door. Those "Shop now" buttons compete directly with "Complete my order" and send people to different products.</td>
+          </tr>
+          <tr>
+            <td><strong>The whole sequence</strong><br>No incentive in any of the three</td>
+            <td>We ask three times and never give a reason to act now.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="win">
+      <p class="win-label">And here's the one that works — worth copying</p>
+      <p>Our best-performing email in the whole account is the first browse abandonment email, at <strong>$4.35 per recipient</strong> — aimed at a <em>colder</em> audience than the checkout emails, and it still beats them. Three things it does differently:</p>
+      <ul class="points">
+        <li>The subject line meets the person where they are — <em>"Still Comparing Your Options?"</em> — instead of talking about us.</li>
+        <li>It names the exact thing they looked at, and the main button is <strong>"VIEW THE TOOL"</strong>, pointing straight back at that page.</li>
+        <li>It asks for something small. It isn't trying to close the sale, just to get them back to the page. Low ask, high click.</li>
+      </ul>
+    </div>
 
     <div class="owns">
       <p><strong>Both halves of this are yours to own.</strong> The copy, and the flows themselves: how they're wired, when they fire, who gets which email, and whether the numbers move afterwards. I want it investigated properly and a short write-up of what you found and what you changed.</p>
     </div>
 
-    <h3>What has to be true for a flow like this to work</h3>
+    <h3>The flow we're building instead</h3>
+
+    <p>I looked up what actually works in these flows rather than just what's wrong with ours. Three things came back consistently:</p>
     <ul class="points">
-      <li><strong>Each email has one job:</strong> remove one specific reason someone didn't buy. A cart email is not a brand email.</li>
-      <li><strong>Show them the exact thing they left</strong> — photo, name, price. Recognition does more than persuasion. If the email could have been sent to anyone, it won't convert.</li>
-      <li><strong>One call to action, repeated,</strong> going straight back to their own checkout — not the homepage, not a collection.</li>
-      <li><strong>The sequence has a shape.</strong> First email: a reminder, no incentive. Second: handle the real objections — warranty, returns, shipping cost, reviews. Third: the incentive, with an actual deadline.</li>
-      <li><strong>No discount in the first email.</strong> Otherwise we pay for orders we would have got for free.</li>
-      <li><strong>Split tools from Academy.</strong> The objections are completely different — shipping and warranty on one side, lifetime access on the other. One email trying to speak to both says nothing to either.</li>
-      <li><strong>Judge it on revenue per recipient,</strong> not open rate. Open rate is the number that's already fine.</li>
+      <li><strong>Three emails is the sweet spot.</strong> Klaviyo's own analysis: three-email sequences returned $24.9m against $3.8m from single emails. Two extra emails, 6.5&times; the revenue.</li>
+      <li><strong>The timing that performs:</strong> first touch within a couple of hours, second around 24 hours, third at 48&ndash;72. Evening sends do best, roughly 7pm in the reader's own timezone.</li>
+      <li><strong>No incentive in the first email.</strong> Discounting early teaches people to abandon on purpose and wait for the code. Hold it to the last touch.</li>
     </ul>
+
+    <div class="warn">
+      <p class="warn-label">⚠ Before we can promise a deadline, one thing has to change</p>
+      <p>You're right that the incentive needs a real expiry — that's the part we've never had. But we currently have <strong>two permanent 10% codes with no end date</strong>: HAIRPOWER, and STYLISTPOWER which has been used 302 times and is out in the world. "10% off, expires tomorrow" isn't credible when a 10% code sits on our site forever and one search proves it.</p>
+      <p>So the flow uses a <strong>unique code generated per person by Klaviyo, with a genuine expiry</strong> — and we decide what happens to the always-on codes. Otherwise the deadline is a bluff, and it costs us more trust than it earns.</p>
+      <p>While I was in there I also found a live code, <strong>"45678", giving 99% off</strong>, with no usage limit and 7 redemptions. Please kill that one today.</p>
+    </div>
+
+    <h3>The shape</h3>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Touch</th><th>When</th><th>Its one job</th><th>What's in it</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1 · The nudge</strong></td>
+            <td>1&ndash;2 hrs</td>
+            <td>Assume it was an accident — a phone died, a client walked in</td>
+            <td>Their exact item: photo, name, price. Two lines of copy. Nothing else on the page. Button: <em>Return to my checkout</em></td>
+          </tr>
+          <tr>
+            <td><strong>2 · The objections</strong></td>
+            <td>~22 hrs</td>
+            <td>Answer the real reason they stopped</td>
+            <td>12-month warranty · 30-day returns · what shipping actually costs and when it arrives · two reviews of that exact product · "reply to this email and I'll answer you myself." Button: <em>Complete my order</em></td>
+          </tr>
+          <tr>
+            <td><strong>3 · The incentive</strong></td>
+            <td>~46 hrs</td>
+            <td>Give one honest reason to act now</td>
+            <td>A unique 10% code that genuinely expires 24 hrs after it's sent, a countdown, and their item again. Button: <em>Use my 10% — expires tomorrow</em></td>
+          </tr>
+          <tr>
+            <td><strong>4 · Change the ask</strong><br><em>optional</em></td>
+            <td>~72 hrs</td>
+            <td>Keep the relationship when the sale is gone</td>
+            <td>Either the last 12 hours on the code, or drop money entirely and send the tutorial that shows the tool in use. Button: <em>Watch it in action</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Two splits that matter</h3>
+    <ul class="points">
+      <li><strong>Tools vs Academy.</strong> The split already exists in the flow and the Academy side has sent nothing. Digital buyers have completely different objections — lifetime access, what's actually inside, no refund once 20% is watched. Shipping and warranty language is simply false for them.</li>
+      <li><strong>Cart value.</strong> Under $100 the strongest lever isn't a discount at all, it's <em>"you're $18 away from free shipping"</em> — honest, specific, and it costs us less than 10%. Save the percentage for carts already over $100.</li>
+    </ul>
+
+    <h3>Rules the copy has to follow</h3>
+    <ul class="points">
+      <li><strong>One door.</strong> Strip the nav, the collection links, the socials and every "Shop now" out of all three.</li>
+      <li><strong>Their item, in every email.</strong> Never a bestsellers feed.</li>
+      <li><strong>Never claim something is expiring unless it is.</strong></li>
+      <li><strong>One CTA, repeated,</strong> going straight back to their own checkout.</li>
+      <li><strong>Smart Sending off</strong> on the first email, and sends in the reader's evening.</li>
+    </ul>
+
+    <h3>How we'll know it worked</h3>
+    <ul class="points">
+      <li><strong>Revenue per recipient</strong> — from $0.75 toward the $3.65 benchmark. This is the number we report.</li>
+      <li><strong>Click-to-open</strong> — from 2.9% toward 12%.</li>
+      <li><strong>Recovery rate</strong> — a strong 2026 flow recovers 8&ndash;12% of abandoned checkouts.</li>
+      <li><strong>Share of recovered orders that used the code.</strong> If it's most of them, we're paying for sales we'd have had anyway and we pull the discount back.</li>
+    </ul>
+
+    <p><strong>Worth deciding:</strong> SMS on the first touch. Klaviyo does it, it's the single biggest addition you can make to a cart flow, and it needs us to start collecting phone consent at checkout.</p>
 
     <div class="decide">
       <h3>Decide today</h3>
       <ul class="checks">
-        <li><input type="checkbox" id="c6a"><label for="c6a">Investigate why most people aren't receiving email #1 — first thing, with a date.</label></li>
-        <li><input type="checkbox" id="c6b"><label for="c6b">Kill or merge the duplicate added-to-cart flow.</label></li>
-        <li><input type="checkbox" id="c6c"><label for="c6c">Pull apart browse abandonment email #1 and write down why it works.</label></li>
-        <li><input type="checkbox" id="c6d"><label for="c6d">Rebuild the checkout sequence against the shape above — owner and deadline.</label></li>
-        <li><input type="checkbox" id="c6e"><label for="c6e">Revenue per recipient becomes a standing number we report on.</label></li>
-        <li><input type="checkbox" id="c6f"><label for="c6f">When we review the findings together.</label></li>
+        <li><input type="checkbox" id="c6a"><label for="c6a"><strong>Today:</strong> kill the live 99%-off code.</label></li>
+        <li><input type="checkbox" id="c6b"><label for="c6b"><strong>Today:</strong> check Smart Sending on email 1 and tell me what you find.</label></li>
+        <li><input type="checkbox" id="c6c"><label for="c6c">What happens to HAIRPOWER and STYLISTPOWER, so a deadline can be real.</label></li>
+        <li><input type="checkbox" id="c6d"><label for="c6d">Kill or merge the duplicate added-to-cart flow.</label></li>
+        <li><input type="checkbox" id="c6e"><label for="c6e">Build the four touches above — an owner and a date per email.</label></li>
+        <li><input type="checkbox" id="c6f"><label for="c6f">Turn the Academy branch on, with its own copy.</label></li>
+        <li><input type="checkbox" id="c6g"><label for="c6g">Which tool gives us the countdown, and who sets up the unique codes in Klaviyo.</label></li>
+        <li><input type="checkbox" id="c6h"><label for="c6h">SMS on the first touch — yes or no, and phone consent at checkout.</label></li>
+        <li><input type="checkbox" id="c6i"><label for="c6i">Revenue per recipient becomes a standing number we report on.</label></li>
+        <li><input type="checkbox" id="c6j"><label for="c6j">When we review it all together.</label></li>
       </ul>
-      <label class="notes-label" for="n6">Notes</label>
-      <textarea id="n6" placeholder="What we found, owner, dates…"></textarea>
+      <label class="notes-label" for="n6">Notes — including anything you see differently above</label>
+      <textarea id="n6" placeholder="Owner, dates, what we're building first…"></textarea>
     </div>
   </section>
 
