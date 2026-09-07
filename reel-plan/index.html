@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Trial Reels Test Plan</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+
+<style>
+  :root {
+    --ground: #FDFBF7;
+    --surface: #FFFFFF;
+    --surface-warm: #F4E9DA;
+    --ink: #151515;
+    --ink-soft: #6B6259;
+    --ink-faint: #9A9086;
+    --line: #E7E0D4;
+    --line-strong: #D8CEBD;
+    --accent: #D43C3C;
+    --accent-soft: #FBEDEB;
+    --good: #35735A;
+    --good-soft: #EAF2ED;
+    --good-line: #B8D5C6;
+    --shadow: 0 1px 2px rgba(21, 21, 21, .04), 0 8px 24px -16px rgba(21, 21, 21, .18);
+
+    --display: "Bebas Neue", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --body: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141210;
+      --surface: #1C1917;
+      --surface-warm: #241F1A;
+      --ink: #F2EDE5;
+      --ink-soft: #A9A096;
+      --ink-faint: #7A7268;
+      --line: #302A24;
+      --line-strong: #443C34;
+      --accent: #EE7070;
+      --accent-soft: #33201F;
+      --good: #6FBE9A;
+      --good-soft: #1B2A23;
+      --good-line: #2E4A3C;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #141210;
+    --surface: #1C1917;
+    --surface-warm: #241F1A;
+    --ink: #F2EDE5;
+    --ink-soft: #A9A096;
+    --ink-faint: #7A7268;
+    --line: #302A24;
+    --line-strong: #443C34;
+    --accent: #EE7070;
+    --accent-soft: #33201F;
+    --good: #6FBE9A;
+    --good-soft: #1B2A23;
+    --good-line: #2E4A3C;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 56px 0 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(46px, 11vw, 76px);
+    line-height: .92;
+    letter-spacing: .01em;
+    margin: 14px 0 16px;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    max-width: 60ch;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .meta-row b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- agenda index ---------- */
+
+  .index {
+    margin: 32px 0 8px;
+    padding: 22px 24px;
+    background: var(--surface-warm);
+    border-radius: 14px;
+  }
+
+  .index h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .index ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2px;
+    counter-reset: idx;
+  }
+
+  .index li { counter-increment: idx; }
+
+  .index a {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 5px 0;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .index a::before {
+    content: counter(idx, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    flex: 0 0 auto;
+  }
+
+  .index a:hover .lbl,
+  .index a:focus-visible .lbl { border-bottom: 1px solid var(--accent); }
+
+  .index .tag {
+    margin-left: auto;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex: 0 0 auto;
+    font-weight: 700;
+  }
+
+  /* ---------- opening ---------- */
+
+  .opening {
+    margin: 36px 0 0;
+    padding: 26px 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--ink);
+    border-radius: 0 0 14px 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .op-eyebrow {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .op-lede {
+    font-size: 18.5px;
+    line-height: 1.5;
+    max-width: 62ch;
+  }
+
+  .opening p { color: var(--ink); }
+
+  .op-close {
+    margin: 20px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--display);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: .02em;
+  }
+
+  /* ---------- decisions ---------- */
+
+  .decided {
+    margin: 28px 0 0;
+    padding: 24px 28px;
+    background: var(--good-soft);
+    border: 1px solid var(--good-line);
+    border-radius: 14px;
+  }
+
+  .dec-label {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .decided ul.points > li::before { background: var(--good); }
+
+  .dec-foot {
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--good-line);
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .decided a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--good);
+  }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding-top: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .sec-head {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+
+  .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    flex: 0 0 auto;
+    padding-top: 6px;
+  }
+
+  h2.sec-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 5.4vw, 38px);
+    line-height: 1.02;
+    letter-spacing: .015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .when {
+    margin-left: auto;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 8px;
+  }
+
+  h3 {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 30px 0 12px;
+  }
+
+  p { margin: 0 0 14px; max-width: 66ch; }
+
+  .lede { font-size: 18px; max-width: 62ch; }
+
+  ul.points {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 11px;
+    max-width: 66ch;
+  }
+
+  ul.points > li { padding-left: 20px; position: relative; }
+
+  ul.points > li::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: .68em;
+    width: 6px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  strong { font-weight: 700; }
+
+  section a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  section a:hover,
+  section a:focus-visible { background: var(--accent-soft); }
+
+  em.hl {
+    font-style: normal;
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+
+  /* ---------- decision blocks ---------- */
+
+  .decide {
+    margin: 22px 0 0;
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .decide > h3 { margin-top: 0; }
+
+  .checks { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+  .checks li { display: flex; gap: 11px; align-items: flex-start; }
+
+  .checks input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin: 5px 0 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .checks label { cursor: pointer; font-size: 15.5px; }
+
+  .checks input:checked + label {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .notes-label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 66px;
+    resize: vertical;
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  textarea::placeholder { color: var(--ink-faint); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- funnel strip ---------- */
+
+  .funnel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(102px, 1fr));
+    gap: 1px;
+    margin: 8px 0 12px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .funnel div {
+    background: var(--surface);
+    padding: 15px 14px;
+  }
+
+  .funnel .fig {
+    font-family: var(--display);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+  }
+
+  .funnel .lbl2 {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  .funnel div.zero { background: var(--accent-soft); }
+  .funnel div.zero .fig { color: var(--accent); }
+  .funnel div.zero .lbl2 { color: var(--accent); }
+
+  /* ---------- data table ---------- */
+
+  .table-scroll {
+    overflow-x: auto;
+    margin: 8px 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 620px;
+  }
+
+  th, td {
+    padding: 11px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  th:first-child, td:first-child {
+    text-align: left;
+    white-space: normal;
+    min-width: 168px;
+  }
+
+  thead th {
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface-warm);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.figure { font-family: var(--mono); font-size: 13.5px; }
+
+  .bench { color: var(--ink-soft); }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .pill.behind { background: var(--accent-soft); color: var(--accent); }
+  .pill.ok { background: var(--good-soft); color: var(--good); }
+
+  .caption {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    max-width: 70ch;
+  }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: var(--surface-warm);
+    border-radius: 12px;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout .k {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .owns {
+    margin: 20px 0;
+    padding: 18px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .owns p { margin: 0; max-width: 64ch; }
+
+  .win {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--good-line);
+    border-left: 3px solid var(--good);
+    border-radius: 0 12px 12px 0;
+    background: var(--good-soft);
+  }
+
+  .win-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .win ul.points > li::before { background: var(--good); }
+  .win p:last-child, .win ul:last-child { margin-bottom: 0; }
+
+  .warn {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .warn-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .warn p:last-child { margin-bottom: 0; }
+
+  .open-flag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* ---------- reference card ---------- */
+
+  .ref {
+    margin: 8px 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .ref-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    align-items: baseline;
+    padding: 13px 18px;
+    background: var(--surface-warm);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .ref-head b { color: var(--ink); font-size: 14px; }
+
+  .ref-body { padding: 16px 18px; }
+
+  .ref-body pre {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 15.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+
+  .steps {
+    counter-reset: st;
+    margin: 8px 0 20px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    max-width: 66ch;
+  }
+
+  .steps > li {
+    counter-increment: st;
+    position: relative;
+    padding-left: 44px;
+    max-width: 66ch;
+  }
+
+  .steps > li::before {
+    content: counter(st);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+  }
+
+  .steps .what { font-weight: 700; display: block; }
+
+  .steps blockquote {
+    margin: 8px 0 0;
+    padding: 11px 15px;
+    background: var(--surface-warm);
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .steps .gets {
+    display: block;
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  footer p { max-width: 70ch; }
+
+  a.src { color: var(--ink-soft); }
+
+  @media (max-width: 560px) {
+    .when { display: none; }
+    .index .tag { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">HOLLA Hair &nbsp;·&nbsp; Work plan</div>
+    <h1>Trial Reels:<br>The Test Plan</h1>
+    <p class="standfirst">Nine Trial Reels over about two weeks. Three creatives, three DM flows, every combination. One goes up every day or two until a combination wins.</p>
+    <div class="meta-row">
+      <span><b>Format</b> &nbsp;Trial Reels only — never a normal Reel</span>
+      <span><b>The give</b> &nbsp;The crimper prep tutorial we already have</span>
+      <span><b>Winner decided on</b> &nbsp;Comments per like</span>
+    </div>
+  </header>
+
+  <section id="p1">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2 class="sec-title">The examples we're copying</h2>
+    </div>
+
+    <p>All of these run the same mechanic. The number next to each is comments divided by likes — that's the metric, because comments are what buy the reach.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Reel</th><th>What it does</th><th>Comments / like</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/DblnrGcuFrA/">@cooldownrunning</a></td>
+            <td>Says <strong>"we are looking for non-influencers and micro influencers"</strong> — tells small accounts they qualify. Best in the set.</td>
+            <td class="figure"><strong>1.56</strong></td>
+          </tr>
+          <tr>
+            <td><a href="https://www.instagram.com/reels/DcLxO_kJuIU/">@cocolifestyleresort</a></td>
+            <td>One specific word — <strong>"Comment CABANA"</strong> — and a prize you can picture. Opens quietly: "Hopefully reach the right people".</td>
+            <td class="figure"><strong>1.11</strong></td>
+          </tr>
+          <tr><td>@hola_natural</td><td>"We're opening <strong>paid</strong> collaborations"</td><td class="figure">0.72</td></tr>
+          <tr><td>@heyshoptuli</td><td>"Comment 'collab' or DM us"</td><td class="figure">0.71</td></tr>
+          <tr><td><a href="https://www.instagram.com/reels/Dc0fFcVBcwe/">@stasshsociety</a></td><td>"AMBASSADOR OPPORTUNITY" + three asks</td><td class="figure">0.67</td></tr>
+          <tr><td><a href="https://www.instagram.com/reels/DbWf1SZhB4m/">@diosafitofficial</a></td><td>"PR opportunity" + three asks</td><td class="figure">0.57</td></tr>
+          <tr><td><a href="https://www.instagram.com/reels/Dc7EEO_sLzw/">@shopfirsthealth</a></td><td>"Pr opportunity!" + three asks. <strong>Best DM flow of anyone</strong> — copied in §05.</td><td class="figure">0.37</td></tr>
+          <tr><td><a href="https://www.instagram.com/reels/DbaV75vTPwJ/">@lovetaycandles</a></td><td>Same script, no adaptation. Worst in the set.</td><td class="figure">0.05</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="caption">A 30× spread on the identical mechanic — so the wording is what matters, not the footage. The full analysis, and the two automations I tested live, are in <a href="../reel-funnel/">the research doc</a>.</p>
+
+    <div class="win">
+      <p class="win-label">One thing we're doing differently from all of them</p>
+      <p>Every reel above offers free product or a spot on an ambassador list. We're not doing that — <strong>we're giving away the crimper prep tutorial we already have</strong>, which means the thing we promise is the thing that arrives, within seconds, every time. Nothing new to build, and nothing to be sheepish about.</p>
+    </div>
+  </section>
+
+  <section id="p2">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2 class="sec-title">The plan</h2>
+    </div>
+
+    <div class="warn">
+      <p class="warn-label">⚠ Trial Reels — not normal Reels. Every single one.</p>
+      <p>A Trial Reel goes <strong>only to people who don't follow us</strong>. That's the entire point: this is for strangers, and our own followers aren't the audience. It also gives each run a fresh, clean sample — which is what makes them comparable to each other.</p>
+      <p>If one goes up as a normal Reel by mistake, that run is void. Don't count it, don't compare it.</p>
+    </div>
+
+    <h3>Three creatives × three flows = nine combinations</h3>
+
+    <p>Each Trial Reel is <strong>one creative paired with one DM flow.</strong> We work through every pairing, one every day or two, and see which combination lands.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Run</th><th>Reel creative</th><th>DM flow</th><th>Roughly when</th></tr></thead>
+        <tbody>
+          <tr><td class="figure">1</td><td><strong>A</strong> · You qualify</td><td><strong>1</strong> · Email first</td><td>Day 1</td></tr>
+          <tr><td class="figure">2</td><td><strong>B</strong> · Word + result</td><td><strong>2</strong> · One message</td><td>Day 3</td></tr>
+          <tr><td class="figure">3</td><td><strong>C</strong> · Quiet</td><td><strong>3</strong> · Give first</td><td>Day 5</td></tr>
+          <tr><td class="figure">4</td><td><strong>A</strong> · You qualify</td><td><strong>2</strong> · One message</td><td>Day 7</td></tr>
+          <tr><td class="figure">5</td><td><strong>B</strong> · Word + result</td><td><strong>3</strong> · Give first</td><td>Day 9</td></tr>
+          <tr><td class="figure">6</td><td><strong>C</strong> · Quiet</td><td><strong>1</strong> · Email first</td><td>Day 11</td></tr>
+          <tr><td class="figure">7</td><td><strong>A</strong> · You qualify</td><td><strong>3</strong> · Give first</td><td>Day 13</td></tr>
+          <tr><td class="figure">8</td><td><strong>B</strong> · Word + result</td><td><strong>1</strong> · Email first</td><td>Day 15</td></tr>
+          <tr><td class="figure">9</td><td><strong>C</strong> · Quiet</td><td><strong>2</strong> · One message</td><td>Day 17</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The order matters for one small reason: every creative meets every flow exactly once. So at the end it reads two ways — average creative A's three runs to see how A did, average flow 1's three runs to see how flow 1 did. Same nine reels, two answers.</p>
+
+    <h3>The rules while it runs</h3>
+    <ul class="points">
+      <li><strong>One live at a time.</strong> Post the next once the last has had at least 24 hours.</li>
+      <li><strong>Roshan picks the video for every run.</strong> Free choice — different footage each time is better than the same clip nine times, and the platform prefers it too.</li>
+      <li><strong>Log every run before the next goes up.</strong> Nine rows: run, creative, flow, date, views, likes, comments, DMs sent, emails captured, tutorial opened. No log, no test.</li>
+      <li><strong>Kill anything under 0.3 comments per like.</strong> Note it and move on.</li>
+      <li><strong>Anything over 1.0 is a winner</strong> — stop the rotation and run that combination properly.</li>
+    </ul>
+  </section>
+
+  <section id="p3">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2 class="sec-title">The three reel creatives</h2>
+    </div>
+
+    <p>Roshan chooses the footage. What's fixed is the <strong>on-screen text</strong> — that's the creative being tested. Each one is lifted from a reel above and pointed at hairstylists.</p>
+
+    <p><strong>The trigger word is <em class="hl">CRIMP</em></strong> in all three — memorable, ours, and unlikely to get typed by accident, so the automation only ever fires when it's meant to.</p>
+
+    <div class="ref">
+      <div class="ref-head"><b>Creative A · You qualify</b> <span>from @cooldownrunning — the 1.56</span></div>
+      <div class="ref-body">
+        <pre>You don't need to be an educator
+or have a big account.
+
+If you do hair and you've never
+been taught crimped prep —
+this is the tutorial.
+
+Comment CRIMP 🤍</pre>
+      </div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Creative B · Word + result</b> <span>from @cocolifestyleresort — the 1.11</span></div>
+      <div class="ref-body">
+        <pre>Comment CRIMP
+
+and I'll send you the prep tutorial
+that makes an updo hold
+through a whole wedding day.
+
+Free.</pre>
+      </div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Creative C · Quiet</b> <span>the understated opener that beat the shouting</span></div>
+      <div class="ref-body">
+        <pre>Hoping this reaches the stylists
+who need it ✨
+
+The prep step nobody taught us,
+and it's the reason the style
+falls out by the reception.
+
+Comment CRIMP</pre>
+      </div>
+    </div>
+
+    <p class="caption">Keep the crimper visible and in use from the first frame in all three — that's the one thing every strong reel in the set does.</p>
+  </section>
+
+  <section id="p4">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2 class="sec-title">The captions</h2>
+    </div>
+
+    <p>One per creative. Hashtags are how a Trial Reel finds strangers, so don't drop them.</p>
+
+    <div class="ref">
+      <div class="ref-head"><b>Caption A</b></div>
+      <div class="ref-body">
+        <pre>You don't need a big account or years behind the chair — if you do hair, this one's for you 🤍
+
+- follow us
+- comment CRIMP
+
+and I'll send you the full prep tutorial.
+
+#bridalhairstylist #weddinghairstylist #hairstylist #updo #hairtutorial #bridalhair #hairtools</pre>
+      </div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Caption B</b></div>
+      <div class="ref-body">
+        <pre>Comment CRIMP and I'll send you the prep tutorial that makes an updo hold through a whole wedding day. Free.
+
+Follow us so it doesn't land in your message requests 🤍
+
+#bridalhair #hairstylist #weddinghair #updostyle #hairstylistlife #hairtutorial #bridalhairstylist</pre>
+      </div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Caption C</b></div>
+      <div class="ref-body">
+        <pre>Hoping this reaches the stylists who need it ✨
+
+Nobody teaches prep. Then the style drops by the reception and we blame the pins.
+
+- follow us
+- comment CRIMP
+
+#bridalhairstylist #weddinghairstylist #hairstylistlife #bridalhair #updo #hairtutorial #hairprep</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="p5">
+    <div class="sec-head">
+      <span class="num">05</span>
+      <h2 class="sec-title">The three ManyChat flows</h2>
+    </div>
+
+    <p>All three trigger on the word <strong>CRIMP</strong> in a comment on that specific Trial Reel. All three also post a short public reply in the comment thread — that's another comment on the post, and it's free.</p>
+
+    <h3>The follow ask — same in all three</h3>
+    <div class="warn">
+      <p class="warn-label">⚠ Ask for the follow. Never block on it.</p>
+      <p>ManyChat can check whether she follows us. If she <strong>doesn't</strong>, put this line at the top of the first message and <strong>send the message anyway</strong>:</p>
+      <p><em>"Quick thing — follow @hollahair.pro so my messages reach you instead of landing in your requests folder 🤍"</em></p>
+      <p>Why it matters: @cocolifestyleresort's automation never replied to us, across two attempts, one of them as a follower. Their reel has <strong>20,800 comments</strong> on it. Twenty thousand people raised their hand and nobody caught them. We don't repeat that.</p>
+    </div>
+
+    <h3>Flow 1 · Email first</h3>
+    <p><em>Copied from @shopfirsthealth, the best flow anyone in the set is running.</em></p>
+    <ol class="steps">
+      <li>
+        <span class="what">Instantly</span>
+        <blockquote>Hi! 🤍 Thanks for commenting — I've got the full crimper prep tutorial for you. Want me to send it?</blockquote>
+        <span class="btn-ghost">Yes please</span>
+      </li>
+      <li>
+        <span class="what">When she taps the button</span>
+        <blockquote>Amazing. What's your email? That's where I'll send it, and you'll get the next tutorials before they go public.</blockquote>
+      </li>
+      <li>
+        <span class="what">When she sends the email</span>
+        <blockquote>Sent 🤍 Here it is too, so you have it right now: [TUTORIAL LINK]
+
+Tell me how it goes on your next bride — I read every reply.</blockquote>
+        <span class="btn-ghost">Watch it now</span>
+      </li>
+      <li>
+        <span class="what">If she writes anything unexpected</span>
+        <blockquote>Let me get a human to come back to you on that 🤍</blockquote>
+        <span class="gets">Route it to a real person. Don't let the thread die.</span>
+      </li>
+    </ol>
+
+    <h3>Flow 2 · One message</h3>
+    <p><em>Copied from @cooldownrunning, whose automation replied to us in under a minute.</em></p>
+    <ol class="steps">
+      <li>
+        <span class="what">Instantly, and that's the whole flow</span>
+        <blockquote>Hey!! 🤍 Thanks so much for commenting. Here's the full crimper prep tutorial — the step that keeps an updo in through a whole wedding day: [TUTORIAL LINK]
+
+No catch, it's yours. If it helps, tell me and I'll send you the next one.</blockquote>
+        <span class="gets">No email asked. This is the run that tells us what the email ask is costing us.</span>
+      </li>
+    </ol>
+
+    <h3>Flow 3 · Give first, ask after</h3>
+    <ol class="steps">
+      <li>
+        <span class="what">Instantly</span>
+        <blockquote>Hi! 🤍 Here it is — the full crimper prep tutorial: [TUTORIAL LINK]</blockquote>
+        <span class="btn-ghost">Got it, thanks</span>
+      </li>
+      <li>
+        <span class="what">When she taps the button</span>
+        <blockquote>One more thing — what's your email? That's how I send the next tutorials before they go public.</blockquote>
+      </li>
+    </ol>
+
+    <div class="win">
+      <p class="win-label">What each flow is actually testing</p>
+      <p><strong>1 vs 2</strong> — does a conversation with a button and an email capture beat one straight message? <strong>1 vs 3</strong> — does asking for the email before or after handing over the tutorial matter? <strong>2 vs 3</strong> — is the button worth anything at all?</p>
+      <p>Every email captured goes to <strong>one dedicated Klaviyo list</strong>, so we can see which flow filled it fastest.</p>
+    </div>
+  </section>
+
+  <section id="p6">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <h2 class="sec-title">Before the first one goes up</h2>
+    </div>
+
+    <div class="win">
+      <p class="win-label">Nothing new has to be built — and no new discount code</p>
+      <p>The give already exists: <strong>"Perfect Prep with a Crimper"</strong>, the tutorial we already hand out in exchange for an email, with 10% off attached to it. There's already a Klaviyo flow behind it.</p>
+      <p>So no coupon to create, no program to launch, no page to write. The only new thing in this whole plan is the ManyChat automation.</p>
+    </div>
+
+    <h3>The checklist</h3>
+    <div class="decide">
+      <ul class="checks">
+        <li><input type="checkbox" id="k1"><label for="k1">Confirm we already have ManyChat before buying anything — the Social Media Planner board has a ManyChat keyword column, so it may already be paid for.</label></li>
+        <li><input type="checkbox" id="k2"><label for="k2">Pin down the <strong>[TUTORIAL LINK]</strong>. There are two pages — one with the email form on it, one that plays the video. If ManyChat captures the email, we send the video page. Confirm which URL is which before writing the flows.</label></li>
+        <li><input type="checkbox" id="k3"><label for="k3">Build the three flows in ManyChat, all triggering on <strong>CRIMP</strong>, all with the follow line and none of them blocking on it.</label></li>
+        <li><input type="checkbox" id="k4"><label for="k4">Point the captured emails at a dedicated Klaviyo list, and decide whether they also enter the existing tutorial flow (so they don't get the same email twice).</label></li>
+        <li><input type="checkbox" id="k5"><label for="k5"><strong>Test every flow from a phone that doesn't follow us</strong> — then re-test once a week while the rotation runs.</label></li>
+        <li><input type="checkbox" id="k6"><label for="k6">Set up the log — nine rows, ready to fill.</label></li>
+        <li><input type="checkbox" id="k7"><label for="k7">Roshan picks the footage for runs 1–3.</label></li>
+      </ul>
+    </div>
+
+    <h3>Later, not now</h3>
+    <ul class="points">
+      <li><strong>An affiliate landing page.</strong> There's a page at <em>/pages/affilliate-registration</em> that currently says only "share your favorite HOLLA tools and get a commission" — no rate, no terms, nothing that closes anyone. If we ever want to point this funnel at creators instead of at the tutorial, that page has to be written first. <strong>Not part of this plan.</strong></li>
+      <li><strong>The at-home customer version.</strong> Same nine-run structure, different give and different copy. Worth doing once we know which creative and which flow won here.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Reel metrics read from Instagram on Sept 7 2026. The @shopfirsthealth and @cooldownrunning DM flows are their real automated messages, received in our own inbox. Background: <a class="src" href="../reel-funnel/">the research doc</a> · <a class="src" href="../">September Marketing Sync</a>.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var KEY = 'holla-reel-plan';
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (box) {
+      if (state[box.id] === true) box.checked = true;
+      box.addEventListener('change', function () { state[box.id] = box.checked; save(); });
+    });
+  })();
+</script>
+</body>
+</html>
