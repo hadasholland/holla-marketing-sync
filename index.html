@@ -304,6 +304,15 @@
 
   strong { font-weight: 700; }
 
+  section a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  section a:hover,
+  section a:focus-visible { background: var(--accent-soft); }
+
   em.hl {
     font-style: normal;
     background: var(--accent-soft);
@@ -1038,7 +1047,7 @@
       <p class="warn-label">⚠ Before we can promise a deadline, one thing has to change</p>
       <p>You're right that the incentive needs a real expiry — that's the part we've never had. But we currently have <strong>two permanent 10% codes with no end date</strong>: HAIRPOWER, and STYLISTPOWER which has been used 302 times and is out in the world. "10% off, expires tomorrow" isn't credible when a 10% code sits on our site forever and one search proves it.</p>
       <p>So the flow uses a <strong>unique code generated per person by Klaviyo, with a genuine expiry</strong> — and we decide what happens to the always-on codes. Otherwise the deadline is a bluff, and it costs us more trust than it earns.</p>
-      <p>While I was in there I also found a live code, <strong>"45678", giving 99% off</strong>, with no usage limit and 7 redemptions. Please kill that one today.</p>
+      <p>While I was in there I also found a live code, <strong>"45678", giving 99% off</strong> — no usage limit, and 7 people had already used it. <strong>That one is now deactivated.</strong> Worth someone doing a pass over the whole discount list for anything else left switched on by accident.</p>
     </div>
 
     <h3>The shape</h3>
@@ -1077,11 +1086,39 @@
       </table>
     </div>
 
-    <h3>Two splits that matter</h3>
+    <h3>How the expiring code actually works</h3>
+
+    <p>This is the part we've never had, so here's the mechanism. <strong>Klaviyo generates the code, not Shopify</strong> — that's what makes a per-person deadline possible.</p>
     <ul class="points">
-      <li><strong>Tools vs Academy.</strong> The split already exists in the flow and the Academy side has sent nothing. Digital buyers have completely different objections — lifetime access, what's actually inside, no refund once 20% is watched. Shipping and warranty language is simply false for them.</li>
-      <li><strong>Cart value.</strong> Under $100 the strongest lever isn't a discount at all, it's <em>"you're $18 away from free shipping"</em> — honest, specific, and it costs us less than 10%. Save the percentage for carts already over $100.</li>
+      <li><strong>Where:</strong> Klaviyo → Content → Coupons → <em>Create Shopify Coupon</em>. It needs the Shopify integration connected, which ours is.</li>
+      <li><strong>Set it up as</strong> 10% off, with a prefix so the codes read like <em>HOLLA10-XXXX</em>. You can restrict it to specific products or collections and set a minimum order.</li>
+      <li><strong>The key setting:</strong> in flows the expiry can be <strong>variable — "X days after send."</strong> That is the whole point. The clock starts per person, so "expires in 24 hours" is true for every single recipient, not a line we've copied in.</li>
+      <li><strong>Insert it</strong> through the personalization menu → Coupons → the coupon's name. Each recipient gets their own code at send time.</li>
+      <li><strong>In flows the codes generate and replenish by themselves.</strong> There's no batch to create by hand — that's only needed for campaigns.</li>
+      <li><strong>Previews show <em>NAME-preview</em>, not a real code.</strong> Codes only become real at send, so we test with a live send to ourselves before it goes anywhere near a customer.</li>
+      <li><strong>Also set</strong> which other discounts it can and can't stack with. Shopify's ceiling is 20 million codes per store, so volume is not a concern.</li>
+      <li><strong>Worth testing:</strong> Shopify can auto-apply a code from a link, so the button could carry the discount instead of asking someone to type it. Needs testing against the checkout link the flow already uses.</li>
+      <li><strong>The countdown itself needs a separate tool</strong> — Klaviyo has no built-in timer. We want an evergreen one that starts per recipient.</li>
     </ul>
+
+    <h3>Why Academy and Tools cannot share an email</h3>
+
+    <p>The split already exists in the flow, and the Academy side has sent <strong>nothing</strong> in 90 days. So either nobody is abandoning a course checkout, or the split isn't catching them — that's the first thing to check.</p>
+
+    <p>But here's why it matters. Someone abandoning a $397 course and someone abandoning a $116 crimper stop for completely different reasons:</p>
+    <ul class="points">
+      <li><strong>A tools buyer is thinking:</strong> what does shipping cost, when will it arrive, what if it breaks, can I send it back, which size do I actually need.</li>
+      <li><strong>An Academy buyer is thinking:</strong> how long do I have access, what's actually inside, can I get my money back if it isn't for me, is it live or recorded, will it cover the styles I really do.</li>
+    </ul>
+
+    <p>And the facts genuinely differ. Tools carry <strong>30-day returns and a 12-month warranty.</strong> The Academy has <strong>no returns</strong> — only a 14-day refund if less than 20% has been watched — and <strong>lifetime access.</strong> Which means the reassurance lines in the tools email are <strong>factually wrong</strong> if they reach an Academy buyer. That isn't a tone problem, it's a claims problem, and it's the kind of thing that turns into a refund argument.</p>
+
+    <p>Practically: <strong>email 1 is shared by both branches, so its copy has to stay neutral</strong> — no shipping, no warranty, no access claims. It shows the item and the button, nothing more. From email 2 the two branches separate completely.</p>
+
+    <p>And on the incentive: <strong>I don't want to discount education.</strong> On the Academy branch the third touch should <em>add</em> something — a preview lesson, a bonus tutorial — rather than take money off.</p>
+
+    <h3>One more split: cart value</h3>
+    <p>Under $100 the strongest lever isn't a discount at all, it's <em>"you're $18 away from free shipping"</em> — honest, specific, and it costs us less than 10% would. Free shipping kicks in at $100 for the US and international, $150 for Australia, and Canada is a $12.50 flat rate, so the number is real and we can calculate it per cart. Save the percentage for carts already over $100.</p>
 
     <h3>Rules the copy has to follow</h3>
     <ul class="points">
@@ -1100,19 +1137,27 @@
       <li><strong>Share of recovered orders that used the code.</strong> If it's most of them, we're paying for sales we'd have had anyway and we pull the discount back.</li>
     </ul>
 
-    <p><strong>Worth deciding:</strong> SMS on the first touch. Klaviyo does it, it's the single biggest addition you can make to a cart flow, and it needs us to start collecting phone consent at checkout.</p>
+    <p><strong>Not doing for now:</strong> SMS. It's the usual next recommendation for a cart flow, but we're leaving it alone until the email side is actually working.</p>
+
+    <h3>The reading behind this — worth going through yourself</h3>
+    <ul class="points">
+      <li><a href="https://www.klaviyo.com/blog/abandoned-cart-email">Klaviyo — Abandoned Cart Emails: 12 Best Practices</a> · the sequence length and discount-timing guidance, and the $24.9m vs $3.8m comparison.</li>
+      <li><a href="https://www.klaviyo.com/blog/abandoned-cart-benchmarks">Klaviyo — Abandoned Cart Benchmark Report</a> · the open / click / conversion / revenue-per-recipient averages we measured ourselves against.</li>
+      <li><a href="https://www.rejoiner.com/resources/abandoned-cart-email-timing">Rejoiner — When Is the Best Time to Send an Abandoned Cart Email</a> · the timing and evening send-window data.</li>
+      <li><a href="https://help.klaviyo.com/hc/en-us/articles/115006155388">Klaviyo Help — How to create unique coupon codes for Shopify</a> · the exact build steps for the expiring code.</li>
+      <li><a href="https://www.geysera.com/blog/abandoned-cart-email/the-abandoned-cart-email-sequence-how-many-emails-what-timing-and-why-most-stores-get-it-wrong">Geysera — The abandoned cart sequence: how many emails, what timing, and why most stores get it wrong</a>.</li>
+    </ul>
 
     <div class="decide">
       <h3>Decide today</h3>
       <ul class="checks">
-        <li><input type="checkbox" id="c6a"><label for="c6a"><strong>Today:</strong> kill the live 99%-off code.</label></li>
         <li><input type="checkbox" id="c6b"><label for="c6b"><strong>Today:</strong> check Smart Sending on email 1 and tell me what you find.</label></li>
         <li><input type="checkbox" id="c6c"><label for="c6c">What happens to HAIRPOWER and STYLISTPOWER, so a deadline can be real.</label></li>
+        <li><input type="checkbox" id="c6k"><label for="c6k">A pass over the full discount list for anything else left switched on by accident.</label></li>
         <li><input type="checkbox" id="c6d"><label for="c6d">Kill or merge the duplicate added-to-cart flow.</label></li>
+        <li><input type="checkbox" id="c6g"><label for="c6g">Set up the Klaviyo coupon with a variable expiry, and pick the countdown tool.</label></li>
         <li><input type="checkbox" id="c6e"><label for="c6e">Build the four touches above — an owner and a date per email.</label></li>
-        <li><input type="checkbox" id="c6f"><label for="c6f">Turn the Academy branch on, with its own copy.</label></li>
-        <li><input type="checkbox" id="c6g"><label for="c6g">Which tool gives us the countdown, and who sets up the unique codes in Klaviyo.</label></li>
-        <li><input type="checkbox" id="c6h"><label for="c6h">SMS on the first touch — yes or no, and phone consent at checkout.</label></li>
+        <li><input type="checkbox" id="c6f"><label for="c6f">Find out why the Academy branch has never sent, then turn it on with its own copy.</label></li>
         <li><input type="checkbox" id="c6i"><label for="c6i">Revenue per recipient becomes a standing number we report on.</label></li>
         <li><input type="checkbox" id="c6j"><label for="c6j">When we review it all together.</label></li>
       </ul>
