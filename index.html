@@ -511,6 +511,70 @@
     white-space: pre-wrap;
   }
 
+  .steps {
+    counter-reset: st;
+    margin: 8px 0 20px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    max-width: 66ch;
+  }
+
+  .steps > li {
+    counter-increment: st;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .steps > li::before {
+    content: counter(st);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    margin-top: 1px;
+  }
+
+  .steps .what { font-weight: 700; display: block; }
+
+  .steps blockquote {
+    margin: 8px 0 0;
+    padding: 11px 15px;
+    background: var(--surface-warm);
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .steps .gets {
+    display: block;
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
   footer {
     margin-top: 72px;
     padding-top: 22px;
@@ -809,20 +873,27 @@
     <h3>What the numbers say</h3>
 
     <div class="callout">
-      <p><span class="k">People open. Nobody clicks.</span>Our open rate matches or beats the benchmark, so the subject lines and the deliverability are fine. Then 2.9% of openers click, against roughly 12%. <strong>The problem is inside the email and in how the flow is wired</strong> — not in getting it delivered or opened.</p>
+      <p><span class="k">People open. Nobody clicks.</span>Our open rate matches or beats the benchmark, so the subject lines and the deliverability are fine. Then 2.9% of openers click, against roughly 12%. Whatever is wrong is happening <strong>after</strong> the email lands and gets opened.</p>
     </div>
 
-    <h3>Signs this is misconfigured, not just badly written</h3>
+    <p>There are two separate problems here and both are real. I don't want us to fix one and assume the other went away.</p>
+
+    <h3>Problem one — the wiring</h3>
     <ul class="points">
       <li><strong>The send counts don't make sense.</strong> Email #1 should always reach the most people, then fewer at each step. In abandoned checkout it's 23 → 98 → 80 for the month, and 49 → 152 → 125 over 90 days. Most people are not getting the first email at all. That needs explaining before anything else.</li>
       <li><strong>Two live flows share the same name</strong> — "Abandoned Cart Reminder · Shopify Added to Cart Trigger" exists twice. Some people may be getting doubled up, and one of the two is losing subscribers at 5%.</li>
       <li><strong>The first checkout email loses 4% of the people who receive it.</strong> For a first touch that is very high.</li>
-      <li><strong>The flow closest to the money performs worst.</strong> Browse abandonment — people who only looked — beats its benchmark. Abandoned checkout, people who nearly paid, returns almost nothing. That's backwards.</li>
-      <li><strong>Our best email already exists.</strong> Browse abandonment email #1 returns $4.35 per recipient over 90 days. Before rebuilding anything, work out why that one works.</li>
+    </ul>
+
+    <h3>Problem two — the copy</h3>
+    <ul class="points">
+      <li><strong>92 people opened these emails last month and exactly one clicked.</strong> Those people received it, opened it, read it and did nothing. No wiring fix changes that number — that's the email itself.</li>
+      <li><strong>The flow closest to the money performs worst.</strong> Browse abandonment — people who only looked — beats its benchmark. Abandoned checkout, people who nearly paid, returns almost nothing. The audience is warmer and the result is worse, which points straight at what we're saying to them.</li>
+      <li><strong>Our best email already exists.</strong> Browse abandonment email #1 returns $4.35 per recipient over 90 days — the strongest email in the account. Before rebuilding anything, work out what that one does differently.</li>
     </ul>
 
     <div class="owns">
-      <p><strong>This is yours to own.</strong> Not just the copy — the flows themselves: how they're wired, when they fire, who gets which email, and whether the numbers move afterwards. I want it investigated properly and a short write-up of what you found and what you changed.</p>
+      <p><strong>Both halves of this are yours to own.</strong> The copy, and the flows themselves: how they're wired, when they fire, who gets which email, and whether the numbers move afterwards. I want it investigated properly and a short write-up of what you found and what you changed.</p>
     </div>
 
     <h3>What has to be true for a flow like this to work</h3>
@@ -859,7 +930,7 @@
 
     <p class="lede">I found a Reel built around a comment-to-DM funnel and I want us to do something in that spirit for HOLLA — <em class="hl">not necessarily giving anything away free.</em> You said the copy was the hard part; I have the flow and the copy in mind, so we build this one together.</p>
 
-    <h3>The reference</h3>
+    <h3>The reference — @shopfirsthealth</h3>
 
     <div class="ref">
       <div class="ref-head">
@@ -867,6 +938,7 @@
         <span>16.3K likes</span>
         <span>7,609 comments</span>
         <span>162 shares</span>
+        <span>7 days old</span>
       </div>
       <div class="ref-body">
         <pre>Pr opportunity! ✨
@@ -878,19 +950,58 @@ We'll reach out to you! 📦</pre>
       </div>
     </div>
 
-    <p>Worth noticing what it's actually doing. It asks for <strong>three</strong> actions, and each one buys something different: the comment drives reach, the follow grows the account, and sending the post as a DM opens a conversation so they're allowed to message you back. Then the real offer happens privately, in the DM — not in the caption. Nearly 7,600 comments on one post.</p>
+    <p>I went through the whole thing — commented, and followed the DMs all the way to the end. Here is the actual funnel, step by step.</p>
+
+    <ol class="steps">
+      <li>
+        <span class="what">The Reel promises a free PR package.</span>
+        On-screen: "Brand so small — if you send this reel … we will send you a PR package." The caption asks for three things: follow, comment "interested", and send the post to their DMs.
+        <span class="gets">Each action buys something different. The comment drives reach, the follow grows the account, and sending the post as a DM opens a conversation — which is what allows them to message you at all.</span>
+      </li>
+      <li>
+        <span class="what">First automatic DM — no package, an "ambassador team" instead.</span>
+        <blockquote>Hello! 🙌 Thanks for reaching out!
+
+We'd love to invite you to our First Health Ambassador Team. As a welcome gift, you'll get an extra 40% off on top of our up to 70% off Summer Sale, plus a free gift with your first order.
+
+Would you like the code? ✨</blockquote>
+        <span class="btn-ghost">Yes! I'm interested.</span>
+        <span class="gets">The reply is a tap, not typing. Almost nobody drops out at a button.</span>
+      </li>
+      <li>
+        <span class="what">Second DM — the email address.</span>
+        <blockquote>Sweet! Also, what's your email? I'll add you to our VIP Ambassador list</blockquote>
+        <span class="gets">This is the step I'd copy whatever our offer turns out to be. A comment on a Reel becomes an email subscriber, and "VIP Ambassador list" makes handing it over feel like an upgrade rather than a form.</span>
+      </li>
+      <li>
+        <span class="what">Third DM — the code, on a clock, plus the ambassador terms.</span>
+        <blockquote>To get started, you can use code CT40 at checkout for an extra 40% off our Summer Sale. Our website link is in our bio. Code is valid for 72 hrs.
+
+Once your order arrives, we'll activate your ambassador account with your own 15% commission code, exclusive discounts, and access to future gifted collab opportunities. Just tag us in your first post or story and we'll take it from there…</blockquote>
+        <span class="btn-ghost">Shop now</span>
+        <span class="gets">A 72-hour deadline, and the ambassador status only activates after the order arrives — so you have to buy first. There's a second 15% dangled through a "creator program" once they've reviewed your first post.</span>
+      </li>
+    </ol>
+
+    <div class="callout">
+      <p><span class="k">Nobody gets a free PR package.</span>The Reel promises a package; the DM hands you a discount code. To become an ambassador you have to place an order. Off one Reel they collect an order, an email address, a tagged post and a new affiliate — and it costs them nothing.</p>
+    </div>
 
     <h3>My take</h3>
     <ul class="points">
+      <li>It's clever and we should be doing something like it. <strong>The give doesn't have to be free product</strong> — theirs isn't.</li>
+      <li><strong>But we don't cross the line into clickbait.</strong> The gap between what that Reel promises and what the DM actually delivers is exactly where people get annoyed. Whatever we say in the Reel has to be what genuinely arrives in the DM — then anything extra reads as a bonus instead of a swap.</li>
       <li>This one is aimed at the <strong>at-home customer</strong>, not our professional audience.</li>
       <li>I want to run it as a <strong>trial Reel</strong> first, so we see how it performs before it goes to our followers.</li>
-      <li>The give doesn't have to be free product. What people receive in the DM is the part worth thinking about properly.</li>
+      <li>I have the flow and the copy in mind — we build it together.</li>
     </ul>
 
     <div class="decide">
       <h3>Decide today</h3>
       <ul class="checks">
         <li><input type="checkbox" id="c7a"><label for="c7a">What we're actually offering in the DM.</label></li>
+        <li><input type="checkbox" id="c7g"><label for="c7g">That the Reel's promise and the DM's delivery are the same thing — we check this before it goes out, every time.</label></li>
+        <li><input type="checkbox" id="c7h"><label for="c7h">Whether we capture an email in the DM, and which list it lands on.</label></li>
         <li><input type="checkbox" id="c7b"><label for="c7b">The trigger word, and the exact DM copy.</label></li>
         <li><input type="checkbox" id="c7c"><label for="c7c">Which actions we ask for — comment only, or comment + follow + DM like the reference.</label></li>
         <li><input type="checkbox" id="c7d"><label for="c7d">Which tool sends the automatic DM. Metricool doesn't do this, so we either get one or run the first one by hand.</label></li>
