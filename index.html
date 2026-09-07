@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>September Marketing Sync</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+
+<style>
+  :root {
+    --ground: #FDFBF7;
+    --surface: #FFFFFF;
+    --surface-warm: #F4E9DA;
+    --ink: #151515;
+    --ink-soft: #6B6259;
+    --ink-faint: #9A9086;
+    --line: #E7E0D4;
+    --line-strong: #D8CEBD;
+    --accent: #D43C3C;
+    --accent-soft: #FBEDEB;
+    --good: #35735A;
+    --good-soft: #EAF2ED;
+    --shadow: 0 1px 2px rgba(21, 21, 21, .04), 0 8px 24px -16px rgba(21, 21, 21, .18);
+
+    --display: "Bebas Neue", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --body: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141210;
+      --surface: #1C1917;
+      --surface-warm: #241F1A;
+      --ink: #F2EDE5;
+      --ink-soft: #A9A096;
+      --ink-faint: #7A7268;
+      --line: #302A24;
+      --line-strong: #443C34;
+      --accent: #EE7070;
+      --accent-soft: #33201F;
+      --good: #6FBE9A;
+      --good-soft: #1B2A23;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #141210;
+    --surface: #1C1917;
+    --surface-warm: #241F1A;
+    --ink: #F2EDE5;
+    --ink-soft: #A9A096;
+    --ink-faint: #7A7268;
+    --line: #302A24;
+    --line-strong: #443C34;
+    --accent: #EE7070;
+    --accent-soft: #33201F;
+    --good: #6FBE9A;
+    --good-soft: #1B2A23;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 56px 0 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(46px, 11vw, 76px);
+    line-height: .92;
+    letter-spacing: .01em;
+    margin: 14px 0 16px;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    max-width: 60ch;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .meta-row b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- agenda index ---------- */
+
+  .index {
+    margin: 32px 0 8px;
+    padding: 22px 24px;
+    background: var(--surface-warm);
+    border-radius: 14px;
+  }
+
+  .index h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .index ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2px;
+    counter-reset: idx;
+  }
+
+  .index li { counter-increment: idx; }
+
+  .index a {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 5px 0;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .index a::before {
+    content: counter(idx, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    flex: 0 0 auto;
+  }
+
+  .index a:hover .lbl,
+  .index a:focus-visible .lbl { border-bottom: 1px solid var(--accent); }
+
+  .index .tag {
+    margin-left: auto;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex: 0 0 auto;
+    font-weight: 700;
+  }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding-top: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .sec-head {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+
+  .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    flex: 0 0 auto;
+    padding-top: 6px;
+  }
+
+  h2.sec-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 5.4vw, 38px);
+    line-height: 1.02;
+    letter-spacing: .015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .when {
+    margin-left: auto;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 8px;
+  }
+
+  h3 {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 30px 0 12px;
+  }
+
+  p { margin: 0 0 14px; max-width: 66ch; }
+
+  .lede { font-size: 18px; max-width: 62ch; }
+
+  ul.points {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 11px;
+    max-width: 66ch;
+  }
+
+  ul.points > li { padding-left: 20px; position: relative; }
+
+  ul.points > li::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: .68em;
+    width: 6px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  strong { font-weight: 700; }
+
+  em.hl {
+    font-style: normal;
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+
+  /* ---------- decision blocks ---------- */
+
+  .decide {
+    margin: 22px 0 0;
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .decide > h3 { margin-top: 0; }
+
+  .checks { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+  .checks li { display: flex; gap: 11px; align-items: flex-start; }
+
+  .checks input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin: 5px 0 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .checks label { cursor: pointer; font-size: 15.5px; }
+
+  .checks input:checked + label {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .notes-label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 66px;
+    resize: vertical;
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  textarea::placeholder { color: var(--ink-faint); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- funnel strip ---------- */
+
+  .funnel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(102px, 1fr));
+    gap: 1px;
+    margin: 8px 0 12px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .funnel div {
+    background: var(--surface);
+    padding: 15px 14px;
+  }
+
+  .funnel .fig {
+    font-family: var(--display);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+  }
+
+  .funnel .lbl2 {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  .funnel div.zero { background: var(--accent-soft); }
+  .funnel div.zero .fig { color: var(--accent); }
+  .funnel div.zero .lbl2 { color: var(--accent); }
+
+  /* ---------- data table ---------- */
+
+  .table-scroll {
+    overflow-x: auto;
+    margin: 8px 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 620px;
+  }
+
+  th, td {
+    padding: 11px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  th:first-child, td:first-child {
+    text-align: left;
+    white-space: normal;
+    min-width: 168px;
+  }
+
+  thead th {
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface-warm);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.figure { font-family: var(--mono); font-size: 13.5px; }
+
+  .bench { color: var(--ink-soft); }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .pill.behind { background: var(--accent-soft); color: var(--accent); }
+  .pill.ok { background: var(--good-soft); color: var(--good); }
+
+  .caption {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    max-width: 70ch;
+  }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: var(--surface-warm);
+    border-radius: 12px;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout .k {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .owns {
+    margin: 20px 0;
+    padding: 18px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .owns p { margin: 0; max-width: 64ch; }
+
+  .open-flag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* ---------- reference card ---------- */
+
+  .ref {
+    margin: 8px 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .ref-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    align-items: baseline;
+    padding: 13px 18px;
+    background: var(--surface-warm);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .ref-head b { color: var(--ink); font-size: 14px; }
+
+  .ref-body { padding: 16px 18px; }
+
+  .ref-body pre {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 15.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  footer p { max-width: 70ch; }
+
+  a.src { color: var(--ink-soft); }
+
+  @media (max-width: 560px) {
+    .when { display: none; }
+    .index .tag { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">HOLLA Hair &nbsp;·&nbsp; Marketing sync</div>
+    <h1>September<br>Marketing Sync</h1>
+    <p class="standfirst">Working doc for our catch-up. We go through it in order, top to bottom. Tick things off as we agree on them, and anything that isn't decided by the end stays visible instead of getting lost in chat.</p>
+    <div class="meta-row">
+      <span><b>Attending</b> &nbsp;Hadas + marketing</span>
+      <span><b>Format</b> &nbsp;Periodic update</span>
+      <span><b>Rule</b> &nbsp;Every item ends with an owner</span>
+    </div>
+  </header>
+
+  <nav class="index" aria-label="Agenda">
+    <h2>Agenda</h2>
+    <ol>
+      <li><a href="#s1"><span class="lbl">How we work — everything ready ahead</span><span class="tag">Core</span></a></li>
+      <li><a href="#s2"><span class="lbl">Influencers — status, hooks, filming guide</span></a></li>
+      <li><a href="#s3"><span class="lbl">TikTok and the other platforms</span></a></li>
+      <li><a href="#s4"><span class="lbl">Europe — creators first</span><span class="tag">Push</span></a></li>
+      <li><a href="#s5"><span class="lbl">Paris shoot</span><span class="tag">Sept 18</span></a></li>
+      <li><a href="#s6"><span class="lbl">Email flows — something is broken</span><span class="tag">Data</span></a></li>
+      <li><a href="#s7"><span class="lbl">The Reel and its DM funnel</span></a></li>
+    </ol>
+  </nav>
+
+  <section id="s1">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2 class="sec-title">How we work — everything ready ahead</h2>
+      <span class="when">Core</span>
+    </div>
+
+    <p class="lede">The single change I want out of this meeting: <em class="hl">nothing gets pulled together at the last minute.</em> Not emails, not social. If it's going out next week, it's finished this week.</p>
+
+    <h3>The standard</h3>
+    <ul class="points">
+      <li><strong>Two emails a week.</strong> Every week, not "when there's something to say."</li>
+      <li><strong>At least five posts a week.</strong></li>
+      <li><strong>By Tuesday of the week before, next week is done.</strong> Not started, not outlined — done. That gives us the rest of the week for my notes and your fixes, instead of scrambling on Friday for a Monday post.</li>
+      <li><strong>I want to know a week ahead what's going out.</strong> No surprises, and no approving things the morning they publish.</li>
+    </ul>
+
+    <h3>What "done" has to mean</h3>
+    <p>If we don't define this, I'll get a list of ideas and think I got a finished week. Done = final creative, final caption, email subject line, the link it points to, and the date and time it publishes.</p>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c1a"><label for="c1a">Where the content calendar lives, so we're both looking at the same one thing.</label></li>
+        <li><input type="checkbox" id="c1b"><label for="c1b">The weekly rhythm: submitted Tuesday → my notes → your fixes → scheduled. Lock the days.</label></li>
+        <li><input type="checkbox" id="c1c"><label for="c1c">The two weekly email slots — what each one is for, so we're not inventing the theme every week.</label></li>
+        <li><input type="checkbox" id="c1d"><label for="c1d">Honest capacity check: is 2 emails + 5 posts a week + everything below realistic in your hours? If not, we cut something now rather than discover it in three weeks.</label></li>
+      </ul>
+      <label class="notes-label" for="n1">Notes</label>
+      <textarea id="n1" placeholder="Agreed rhythm, owner, start week…"></textarea>
+    </div>
+  </section>
+
+  <section id="s2">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2 class="sec-title">Influencers — status, hooks, filming guide</h2>
+    </div>
+
+    <h3>Where we are</h3>
+    <p>Walk me through the current collaborations overall — who has been sent product, who has posted, who's gone quiet, what's coming next.</p>
+
+    <h3>A guidelines file for creators</h3>
+    <p>I'd like us to build one document we can send every creator: <strong>how to build a hook, and how to film a video.</strong> Not a set of rules they have to obey — a reference with real examples, so they have something clear to follow while still shooting in their own style.</p>
+    <p>On the usage-rights point you raised: agreed, on gifted collaborations we can suggest but not require. That's exactly why the guide has to be inspiration rather than a spec — and it's a separate conversation whether we move specific creators to paid so we actually own the footage for ads.</p>
+
+    <h3>New ideas — and my video</h3>
+    <p>I filmed a brush video and it came out really well. I want to show it to you: it's the reference for the style I'm after, and I'd like more creators making videos like it. I'll finish the edit and send it over.</p>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c2a"><label for="c2a">Who writes the hook / filming guide, and by when.</label></li>
+        <li><input type="checkbox" id="c2b"><label for="c2b">What goes in it — the few things we always want to see, with example videos attached.</label></li>
+        <li><input type="checkbox" id="c2c"><label for="c2c">Whether we move any current creators to paid for usage rights, and which ones are worth it.</label></li>
+        <li><input type="checkbox" id="c2d"><label for="c2d">Brainstorm slot for hook and video concepts — book it now, don't leave it as "sometime."</label></li>
+      </ul>
+      <label class="notes-label" for="n2">Notes</label>
+      <textarea id="n2" placeholder="Creator names, owner, dates…"></textarea>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2 class="sec-title">TikTok and the other platforms</h2>
+    </div>
+
+    <p class="lede">We start now. From here on, <em class="hl">everything that goes up on Instagram goes up there too</em> — not literally everything, but everything that makes sense for the platform.</p>
+
+    <h3>What's already in place</h3>
+    <ul class="points">
+      <li><strong>TikTok:</strong> the account is live and has videos, the business is verified and the website link is there. It needs refreshing, not building. TikTok Shop is the one piece that waits until I'm physically in the US — I'll set it up in New York in November.</li>
+      <li><strong>YouTube:</strong> the channel is active. May used to upload manually. We connect it to Metricool and start with videos that already performed well on Instagram but were never posted there.</li>
+      <li><strong>YouTube long-form:</strong> not just Shorts. We've made original videos off the back of our paid tutorials before — sneak peeks, how-to-use-the-product videos. I want more of that, in the 2–10 minute range.</li>
+      <li>We're already paying for Metricool, so publishing out to the other platforms should be automatic off the Instagram upload.</li>
+    </ul>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c3a"><label for="c3a">Who owns each channel week to week, and it goes in the same calendar as everything else.</label></li>
+        <li><input type="checkbox" id="c3b"><label for="c3b">Connect YouTube + TikTok in Metricool — who does it and when.</label></li>
+        <li><input type="checkbox" id="c3c"><label for="c3c">Pick the first back catalogue of Instagram winners to re-publish.</label></li>
+        <li><input type="checkbox" id="c3d"><label for="c3d">Long-form: where the footage comes from, and how much of the paid tutorials we're willing to give away free.</label></li>
+        <li><input type="checkbox" id="c3e"><label for="c3e">Ask Mhay what she learned from the earlier YouTube run before we repeat it.</label></li>
+      </ul>
+      <label class="notes-label" for="n3">Notes</label>
+      <textarea id="n3" placeholder="Owners, first upload date…"></textarea>
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2 class="sec-title">Europe — creators first</h2>
+      <span class="when">Push</span>
+    </div>
+
+    <p class="lede">I want us to <em class="hl">step on the gas in Europe</em>, and the way in is creators. That's your area, so this one is mostly yours to drive.</p>
+
+    <h3>What I mean</h3>
+    <ul class="points">
+      <li><strong>European creators are the priority</strong> — building a real bench of them, not one-offs when someone happens to reach out.</li>
+      <li>Same approach we use everywhere, pointed at Europe on purpose: find them, reach out, get product out, get content back.</li>
+      <li>I want a target list with names on it, not a plan to make a plan.</li>
+      <li>Worth checking who has already come to us from Europe and never got followed up properly. Warm beats cold.</li>
+    </ul>
+
+    <h3>Questions to answer today</h3>
+    <ul class="points">
+      <li>Which countries we start with.</li>
+      <li>Which products we lead with there — stock and plug type aren't the same everywhere, so the European offer won't be identical to the US one.</li>
+      <li>How many creators we want live in Europe by the end of the quarter.</li>
+      <li>What the first concrete step is, this week.</li>
+    </ul>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c4a"><label for="c4a">First markets, named.</label></li>
+        <li><input type="checkbox" id="c4b"><label for="c4b">A first list of European creators to approach — you build it, we review it together.</label></li>
+        <li><input type="checkbox" id="c4c"><label for="c4c">A number to aim at, and the date we check against it.</label></li>
+        <li><input type="checkbox" id="c4d"><label for="c4d">Check for unanswered European enquiries and reopen them.</label></li>
+      </ul>
+      <label class="notes-label" for="n4">Notes</label>
+      <textarea id="n4" placeholder="Markets, names, target, first step…"></textarea>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="sec-head">
+      <span class="num">05</span>
+      <h2 class="sec-title">Paris shoot</h2>
+      <span class="when">Sept 18</span>
+    </div>
+
+    <p class="lede">The shoot is <strong>September 18</strong>. We're filming a tutorial with hairstylist <strong>Kasia Fortuna</strong>, and I'm bringing someone whose only job is social content and behind-the-scenes footage.</p>
+
+    <h3>What I need from you</h3>
+    <p>If you have ideas for things to film — say them now. I told Kasia I'd send her a list of ideas, and I'd rather that list came out of both our heads. The tutorial itself is covered; what I'm looking for is the social and behind-the-scenes side.</p>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c5a"><label for="c5a">Your shot ideas — on the table, in the room.</label></li>
+        <li><input type="checkbox" id="c5b"><label for="c5b">The list I send Kasia: who writes it, and it goes out this week.</label></li>
+        <li><input type="checkbox" id="c5c"><label for="c5c">What we expect to come home with — how many tutorials, how many Reels, how much BTS.</label></li>
+        <li><input type="checkbox" id="c5d"><label for="c5d">Who edits it afterwards, and when they get the footage.</label></li>
+      </ul>
+      <label class="notes-label" for="n5">Notes</label>
+      <textarea id="n5" placeholder="Shot ideas, deliverables, owner…"></textarea>
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <h2 class="sec-title">Email flows — something is broken</h2>
+      <span class="when">Data</span>
+    </div>
+
+    <p class="lede">We had a lot of abandoned checkouts this past month and <em class="hl">almost none of them came back.</em> I've pulled the numbers. Something in these flows isn't working properly, and it needs investigating — not rewriting the copy and hoping.</p>
+
+    <h3>Abandoned checkout, Aug 1 – Sep 7</h3>
+
+    <div class="funnel">
+      <div><span class="fig">186</span><span class="lbl2">people started checkout</span></div>
+      <div><span class="fig">201</span><span class="lbl2">reminder emails sent</span></div>
+      <div><span class="fig">92</span><span class="lbl2">opened them</span></div>
+      <div class="zero"><span class="fig">1</span><span class="lbl2">clicked</span></div>
+      <div class="zero"><span class="fig">0</span><span class="lbl2">orders recovered</span></div>
+      <div class="zero"><span class="fig">$0</span><span class="lbl2">revenue recovered</span></div>
+    </div>
+
+    <p class="caption">A month of people who had their card out, and a single click. The added-to-cart flow also produced zero orders in the same period. Browse abandonment recovered 3 orders / $184.</p>
+
+    <h3>The wider picture — 90 days vs. benchmark</h3>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Abandoned<br>Checkout</th>
+            <th>Browse<br>Abandonment</th>
+            <th>Added<br>to Cart</th>
+            <th class="bench">Benchmark</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Recipients</td>
+            <td class="figure">326</td>
+            <td class="figure">275</td>
+            <td class="figure">80</td>
+            <td class="figure bench">—</td>
+          </tr>
+          <tr>
+            <td>Open rate</td>
+            <td class="figure">52.2%</td>
+            <td class="figure">45.5%</td>
+            <td class="figure">42.5%</td>
+            <td class="figure bench">50.5%</td>
+          </tr>
+          <tr>
+            <td>Click rate</td>
+            <td class="figure">1.5%</td>
+            <td class="figure">1.8%</td>
+            <td class="figure">5.0%</td>
+            <td class="figure bench">6.3%</td>
+          </tr>
+          <tr>
+            <td>Click-to-open</td>
+            <td class="figure">2.9%</td>
+            <td class="figure">4.0%</td>
+            <td class="figure">11.8%</td>
+            <td class="figure bench">~12%</td>
+          </tr>
+          <tr>
+            <td>Placed-order rate</td>
+            <td class="figure">0.6%</td>
+            <td class="figure">1.8%</td>
+            <td class="figure">0%</td>
+            <td class="figure bench">3.3%</td>
+          </tr>
+          <tr>
+            <td>Revenue per recipient</td>
+            <td class="figure">$0.75</td>
+            <td class="figure">$2.08</td>
+            <td class="figure">$0.00</td>
+            <td class="figure bench">$3.65 / $1.07</td>
+          </tr>
+          <tr>
+            <td>Verdict</td>
+            <td><span class="pill behind">5× behind</span></td>
+            <td><span class="pill ok">above</span></td>
+            <td><span class="pill behind">no sales</span></td>
+            <td class="bench"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="caption">Benchmarks are Klaviyo's ecommerce flow averages — $3.65 revenue per recipient for cart flows, $1.07 for browse abandonment. Order counts are small, so read the conversion rates as directional; the click rates sit on hundreds of recipients and are solid.</p>
+
+    <h3>What the numbers say</h3>
+
+    <div class="callout">
+      <p><span class="k">People open. Nobody clicks.</span>Our open rate matches or beats the benchmark, so the subject lines and the deliverability are fine. Then 2.9% of openers click, against roughly 12%. <strong>The problem is inside the email and in how the flow is wired</strong> — not in getting it delivered or opened.</p>
+    </div>
+
+    <h3>Signs this is misconfigured, not just badly written</h3>
+    <ul class="points">
+      <li><strong>The send counts don't make sense.</strong> Email #1 should always reach the most people, then fewer at each step. In abandoned checkout it's 23 → 98 → 80 for the month, and 49 → 152 → 125 over 90 days. Most people are not getting the first email at all. That needs explaining before anything else.</li>
+      <li><strong>Two live flows share the same name</strong> — "Abandoned Cart Reminder · Shopify Added to Cart Trigger" exists twice. Some people may be getting doubled up, and one of the two is losing subscribers at 5%.</li>
+      <li><strong>The first checkout email loses 4% of the people who receive it.</strong> For a first touch that is very high.</li>
+      <li><strong>The flow closest to the money performs worst.</strong> Browse abandonment — people who only looked — beats its benchmark. Abandoned checkout, people who nearly paid, returns almost nothing. That's backwards.</li>
+      <li><strong>Our best email already exists.</strong> Browse abandonment email #1 returns $4.35 per recipient over 90 days. Before rebuilding anything, work out why that one works.</li>
+    </ul>
+
+    <div class="owns">
+      <p><strong>This is yours to own.</strong> Not just the copy — the flows themselves: how they're wired, when they fire, who gets which email, and whether the numbers move afterwards. I want it investigated properly and a short write-up of what you found and what you changed.</p>
+    </div>
+
+    <h3>What has to be true for a flow like this to work</h3>
+    <ul class="points">
+      <li><strong>Each email has one job:</strong> remove one specific reason someone didn't buy. A cart email is not a brand email.</li>
+      <li><strong>Show them the exact thing they left</strong> — photo, name, price. Recognition does more than persuasion. If the email could have been sent to anyone, it won't convert.</li>
+      <li><strong>One call to action, repeated,</strong> going straight back to their own checkout — not the homepage, not a collection.</li>
+      <li><strong>The sequence has a shape.</strong> First email: a reminder, no incentive. Second: handle the real objections — warranty, returns, shipping cost, reviews. Third: the incentive, with an actual deadline.</li>
+      <li><strong>No discount in the first email.</strong> Otherwise we pay for orders we would have got for free.</li>
+      <li><strong>Split tools from Academy.</strong> The objections are completely different — shipping and warranty on one side, lifetime access on the other. One email trying to speak to both says nothing to either.</li>
+      <li><strong>Judge it on revenue per recipient,</strong> not open rate. Open rate is the number that's already fine.</li>
+    </ul>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c6a"><label for="c6a">Investigate why most people aren't receiving email #1 — first thing, with a date.</label></li>
+        <li><input type="checkbox" id="c6b"><label for="c6b">Kill or merge the duplicate added-to-cart flow.</label></li>
+        <li><input type="checkbox" id="c6c"><label for="c6c">Pull apart browse abandonment email #1 and write down why it works.</label></li>
+        <li><input type="checkbox" id="c6d"><label for="c6d">Rebuild the checkout sequence against the shape above — owner and deadline.</label></li>
+        <li><input type="checkbox" id="c6e"><label for="c6e">Revenue per recipient becomes a standing number we report on.</label></li>
+        <li><input type="checkbox" id="c6f"><label for="c6f">When we review the findings together.</label></li>
+      </ul>
+      <label class="notes-label" for="n6">Notes</label>
+      <textarea id="n6" placeholder="What we found, owner, dates…"></textarea>
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="sec-head">
+      <span class="num">07</span>
+      <h2 class="sec-title">The Reel and its DM funnel</h2>
+    </div>
+
+    <p class="lede">I found a Reel built around a comment-to-DM funnel and I want us to do something in that spirit for HOLLA — <em class="hl">not necessarily giving anything away free.</em> You said the copy was the hard part; I have the flow and the copy in mind, so we build this one together.</p>
+
+    <h3>The reference</h3>
+
+    <div class="ref">
+      <div class="ref-head">
+        <b>@shopfirsthealth</b>
+        <span>16.3K likes</span>
+        <span>7,609 comments</span>
+        <span>162 shares</span>
+      </div>
+      <div class="ref-body">
+        <pre>Pr opportunity! ✨
+- follow us
+- comment "interested"
+- send this post to our dms
+
+We'll reach out to you! 📦</pre>
+      </div>
+    </div>
+
+    <p>Worth noticing what it's actually doing. It asks for <strong>three</strong> actions, and each one buys something different: the comment drives reach, the follow grows the account, and sending the post as a DM opens a conversation so they're allowed to message you back. Then the real offer happens privately, in the DM — not in the caption. Nearly 7,600 comments on one post.</p>
+
+    <h3>My take</h3>
+    <ul class="points">
+      <li>This one is aimed at the <strong>at-home customer</strong>, not our professional audience.</li>
+      <li>I want to run it as a <strong>trial Reel</strong> first, so we see how it performs before it goes to our followers.</li>
+      <li>The give doesn't have to be free product. What people receive in the DM is the part worth thinking about properly.</li>
+    </ul>
+
+    <div class="decide">
+      <h3>Decide today</h3>
+      <ul class="checks">
+        <li><input type="checkbox" id="c7a"><label for="c7a">What we're actually offering in the DM.</label></li>
+        <li><input type="checkbox" id="c7b"><label for="c7b">The trigger word, and the exact DM copy.</label></li>
+        <li><input type="checkbox" id="c7c"><label for="c7c">Which actions we ask for — comment only, or comment + follow + DM like the reference.</label></li>
+        <li><input type="checkbox" id="c7d"><label for="c7d">Which tool sends the automatic DM. Metricool doesn't do this, so we either get one or run the first one by hand.</label></li>
+        <li><input type="checkbox" id="c7e"><label for="c7e">Who films the Reel, and when it goes out.</label></li>
+        <li><input type="checkbox" id="c7f"><label for="c7f">How we judge it: comments, DMs opened, clicks, sales.</label></li>
+      </ul>
+      <label class="notes-label" for="n7">Notes</label>
+      <textarea id="n7" placeholder="Offer, trigger word, tool, date…"></textarea>
+    </div>
+  </section>
+
+  <footer>
+    <p>Email figures: Klaviyo flow reporting, Placed Order conversion metric — Aug 1 – Sep 7 2026 for the monthly funnel, last 90 days for the comparison table. Benchmarks: <a class="src" href="https://www.klaviyo.com/blog/abandoned-cart-benchmarks">Klaviyo abandoned cart benchmark report</a>.</p>
+    <p>Ticks and notes on this page are saved in your own browser only — they aren't shared with anyone else who opens the link.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var KEY = 'holla-sync-sept';
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* private mode */ }
+    }
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (box) {
+      if (state[box.id] === true) box.checked = true;
+      box.addEventListener('change', function () {
+        state[box.id] = box.checked;
+        save();
+      });
+    });
+
+    document.querySelectorAll('textarea').forEach(function (area) {
+      if (typeof state[area.id] === 'string') area.value = state[area.id];
+      area.addEventListener('input', function () {
+        state[area.id] = area.value;
+        save();
+      });
+    });
+  })();
+</script>
+</body>
+</html>
