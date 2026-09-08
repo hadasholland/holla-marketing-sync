@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Reels and Automations</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+
+<style>
+  :root {
+    --ground: #FDFBF7;
+    --surface: #FFFFFF;
+    --surface-warm: #F4E9DA;
+    --ink: #151515;
+    --ink-soft: #6B6259;
+    --ink-faint: #9A9086;
+    --line: #E7E0D4;
+    --line-strong: #D8CEBD;
+    --accent: #D43C3C;
+    --accent-soft: #FBEDEB;
+    --good: #35735A;
+    --good-soft: #EAF2ED;
+    --good-line: #B8D5C6;
+    --shadow: 0 1px 2px rgba(21, 21, 21, .04), 0 8px 24px -16px rgba(21, 21, 21, .18);
+
+    --display: "Bebas Neue", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --body: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #141210;
+      --surface: #1C1917;
+      --surface-warm: #241F1A;
+      --ink: #F2EDE5;
+      --ink-soft: #A9A096;
+      --ink-faint: #7A7268;
+      --line: #302A24;
+      --line-strong: #443C34;
+      --accent: #EE7070;
+      --accent-soft: #33201F;
+      --good: #6FBE9A;
+      --good-soft: #1B2A23;
+      --good-line: #2E4A3C;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #141210;
+    --surface: #1C1917;
+    --surface-warm: #241F1A;
+    --ink: #F2EDE5;
+    --ink-soft: #A9A096;
+    --ink-faint: #7A7268;
+    --line: #302A24;
+    --line-strong: #443C34;
+    --accent: #EE7070;
+    --accent-soft: #33201F;
+    --good: #6FBE9A;
+    --good-soft: #1B2A23;
+    --good-line: #2E4A3C;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 56px 0 28px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(46px, 11vw, 76px);
+    line-height: .92;
+    letter-spacing: .01em;
+    margin: 14px 0 16px;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    max-width: 60ch;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .meta-row b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- agenda index ---------- */
+
+  .index {
+    margin: 32px 0 8px;
+    padding: 22px 24px;
+    background: var(--surface-warm);
+    border-radius: 14px;
+  }
+
+  .index h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .index ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 2px;
+    counter-reset: idx;
+  }
+
+  .index li { counter-increment: idx; }
+
+  .index a {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 5px 0;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .index a::before {
+    content: counter(idx, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    flex: 0 0 auto;
+  }
+
+  .index a:hover .lbl,
+  .index a:focus-visible .lbl { border-bottom: 1px solid var(--accent); }
+
+  .index .tag {
+    margin-left: auto;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex: 0 0 auto;
+    font-weight: 700;
+  }
+
+  /* ---------- opening ---------- */
+
+  .opening {
+    margin: 36px 0 0;
+    padding: 26px 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--ink);
+    border-radius: 0 0 14px 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .op-eyebrow {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .op-lede {
+    font-size: 18.5px;
+    line-height: 1.5;
+    max-width: 62ch;
+  }
+
+  .opening p { color: var(--ink); }
+
+  .op-close {
+    margin: 20px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--display);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: .02em;
+  }
+
+  /* ---------- decisions ---------- */
+
+  .decided {
+    margin: 28px 0 0;
+    padding: 24px 28px;
+    background: var(--good-soft);
+    border: 1px solid var(--good-line);
+    border-radius: 14px;
+  }
+
+  .dec-label {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .decided ul.points > li::before { background: var(--good); }
+
+  .dec-foot {
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--good-line);
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .decided a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--good);
+  }
+
+  /* ---------- sections ---------- */
+
+  section {
+    padding-top: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .sec-head {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 10px;
+    margin-bottom: 22px;
+  }
+
+  .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    flex: 0 0 auto;
+    padding-top: 6px;
+  }
+
+  h2.sec-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 5.4vw, 38px);
+    line-height: 1.02;
+    letter-spacing: .015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .when {
+    margin-left: auto;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 8px;
+  }
+
+  h3 {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 30px 0 12px;
+  }
+
+  p { margin: 0 0 14px; max-width: 66ch; }
+
+  .lede { font-size: 18px; max-width: 62ch; }
+
+  ul.points {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 11px;
+    max-width: 66ch;
+  }
+
+  ul.points > li { padding-left: 20px; position: relative; }
+
+  ul.points > li::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: .68em;
+    width: 6px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  strong { font-weight: 700; }
+
+  section a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
+
+  section a:hover,
+  section a:focus-visible { background: var(--accent-soft); }
+
+  em.hl {
+    font-style: normal;
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+
+  /* ---------- decision blocks ---------- */
+
+  .decide {
+    margin: 22px 0 0;
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .decide > h3 { margin-top: 0; }
+
+  .checks { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+  .checks li { display: flex; gap: 11px; align-items: flex-start; }
+
+  .checks input[type="checkbox"] {
+    flex: 0 0 auto;
+    margin: 5px 0 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .checks label { cursor: pointer; font-size: 15.5px; }
+
+  .checks input:checked + label {
+    color: var(--ink-faint);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .notes-label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 66px;
+    resize: vertical;
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  textarea::placeholder { color: var(--ink-faint); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- funnel strip ---------- */
+
+  .funnel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(102px, 1fr));
+    gap: 1px;
+    margin: 8px 0 12px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .funnel div {
+    background: var(--surface);
+    padding: 15px 14px;
+  }
+
+  .funnel .fig {
+    font-family: var(--display);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+  }
+
+  .funnel .lbl2 {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  .funnel div.zero { background: var(--accent-soft); }
+  .funnel div.zero .fig { color: var(--accent); }
+  .funnel div.zero .lbl2 { color: var(--accent); }
+
+  /* ---------- data table ---------- */
+
+  .table-scroll {
+    overflow-x: auto;
+    margin: 8px 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    min-width: 620px;
+  }
+
+  th, td {
+    padding: 11px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  th:first-child, td:first-child {
+    text-align: left;
+    white-space: normal;
+    min-width: 168px;
+  }
+
+  thead th {
+    font-size: 10.5px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface-warm);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.figure { font-family: var(--mono); font-size: 13.5px; }
+
+  .bench { color: var(--ink-soft); }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .pill.behind { background: var(--accent-soft); color: var(--accent); }
+  .pill.ok { background: var(--good-soft); color: var(--good); }
+
+  .caption {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    max-width: 70ch;
+  }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: var(--surface-warm);
+    border-radius: 12px;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout .k {
+    font-family: var(--display);
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: .02em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .owns {
+    margin: 20px 0;
+    padding: 18px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .owns p { margin: 0; max-width: 64ch; }
+
+  .win {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--good-line);
+    border-left: 3px solid var(--good);
+    border-radius: 0 12px 12px 0;
+    background: var(--good-soft);
+  }
+
+  .win-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+
+  .win ul.points > li::before { background: var(--good); }
+  .win p:last-child, .win ul:last-child { margin-bottom: 0; }
+
+  .warn {
+    margin: 22px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+  }
+
+  .warn-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .warn p:last-child { margin-bottom: 0; }
+
+  .open-flag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* ---------- reference card ---------- */
+
+  .ref {
+    margin: 8px 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .ref-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    align-items: baseline;
+    padding: 13px 18px;
+    background: var(--surface-warm);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .ref-head b { color: var(--ink); font-size: 14px; }
+
+  .ref-body { padding: 16px 18px; }
+
+  .ref-body pre {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 15.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+
+  .steps {
+    counter-reset: st;
+    margin: 8px 0 20px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    max-width: 66ch;
+  }
+
+  .steps > li {
+    counter-increment: st;
+    position: relative;
+    padding-left: 44px;
+    max-width: 66ch;
+  }
+
+  .steps > li::before {
+    content: counter(st);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+  }
+
+  .steps .what { font-weight: 700; display: block; }
+
+  .steps blockquote {
+    margin: 8px 0 0;
+    padding: 11px 15px;
+    background: var(--surface-warm);
+    border-radius: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .steps .gets {
+    display: block;
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+
+  footer p { max-width: 70ch; }
+
+  a.src { color: var(--ink-soft); }
+
+  @media (max-width: 560px) {
+    .when { display: none; }
+    .index .tag { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">HOLLA Hair &nbsp;·&nbsp; Reels</div>
+    <h1>Three Reels,<br>Three Automations</h1>
+    <p class="standfirst">What to film, and what the DM sends back. Each one is copied from a brand already running it, adapted from their product to ours.</p>
+    <div class="meta-row">
+      <span><b>Trigger word</b> &nbsp;interested</span>
+      <span><b>Format</b> &nbsp;Trial Reels only, never a normal Reel</span>
+      <span><b>One rule</b> &nbsp;The reel hints. The DM tells.</span>
+    </div>
+  </header>
+
+  <section id="r1">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2 class="sec-title">Brand so small</h2>
+      <span class="when">from @shopfirsthealth</span>
+    </div>
+
+    <h3>The video</h3>
+
+    <div class="ref">
+      <div class="ref-head"><b>On-screen text</b></div>
+      <div class="ref-body"><pre>Brand so small
+
+If you send this reel to our DMs
+we will send you a PR package</pre></div>
+    </div>
+
+    <ul class="points">
+      <li>One woman using a HOLLA tool at home, and the result. No talking.</li>
+      <li>The tool has to be <strong>visible and in use in the very first frame</strong>.</li>
+      <li>Only three lines of text, so the footage does the work. Pick the nicest hair result we have.</li>
+      <li>Around 15 seconds. Plain on purpose, no fancy transitions.</li>
+    </ul>
+
+    <h3>The caption</h3>
+
+    <div class="ref">
+      <div class="ref-body"><pre>Pr opportunity! ✨
+
+- follow us
+- comment "interested"
+- send this post to our dms
+
+We'll reach out to you! 📦
+
+#hairathome #salonhairathome #hairtools #curlinghair #blowoutathome #pr #prpackage #athomehair</pre></div>
+    </div>
+
+    <h3>The automation</h3>
+    <p>Four messages. Triggers on the word <strong>interested</strong> in a comment.</p>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 1</b> <span>instantly</span></div>
+      <div class="ref-body"><pre>Hello! 🤍 Thanks for reaching out!
+
+We'd love to invite you to our HOLLA Ambassador Team. As a welcome gift, you'll get 20% off your first order, plus your own code to pass on.
+
+Would you like the code? ✨
+
+[button: Yes! I'm interested.]</pre></div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 2</b> <span>when she taps the button</span></div>
+      <div class="ref-body"><pre>Sweet! Also, what's your email? I'll add you to our VIP Ambassador list</pre></div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 3</b> <span>when she sends her email</span></div>
+      <div class="ref-body"><pre>Awesome! 🤍 We'd love to have you join.
+
+To get started, you can use code [CODE] at checkout for 20% off. Our website link is in our bio. Code is valid for 72 hrs.
+
+Once your order arrives, we'll activate your ambassador account with your own code: your friends get 10% off, you earn 10% on every order, and a $25 bonus every 5 orders. Just tag us in your first post or story and we'll take it from there.
+
+[button: Shop now]</pre></div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 4</b> <span>if she writes anything unexpected</span></div>
+      <div class="ref-body"><pre>Let me get a human to come back to you on that 🤍</pre></div>
+    </div>
+  </section>
+
+  <section id="r2">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2 class="sec-title">Looking for non influencers</h2>
+      <span class="when">from @cooldownrunning</span>
+    </div>
+
+    <h3>The video</h3>
+
+    <div class="ref">
+      <div class="ref-head"><b>On-screen text</b></div>
+      <div class="ref-body"><pre>We are looking for
+non influencers and micro influencers
+to send PR to!!
+
+Not stylists.
+Women who do their own hair.</pre></div>
+    </div>
+
+    <ul class="points">
+      <li>Same idea, one woman using a HOLLA tool at home.</li>
+      <li>Tool visible and in use in the first frame.</li>
+      <li>More text than the first one, so hold each line about two seconds. Up to 16 seconds total.</li>
+      <li>Keep the text high enough that the Instagram caption bar doesn't cover the last line.</li>
+    </ul>
+
+    <h3>The caption</h3>
+
+    <div class="ref">
+      <div class="ref-body"><pre>we are looking for non-influencers and micro influencers to send PR to!!
+
+- follow us
+- comment "interested"
+- send this post to our dms
+
+#propportunity #microinfluencers #hairathome #salonhairathome #hairtools #curlinghair #blowoutathome</pre></div>
+    </div>
+
+    <h3>The automation</h3>
+    <p>One message, and that's the whole thing.</p>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 1</b> <span>instantly</span></div>
+      <div class="ref-body"><pre>Hey!! 🤍 Thanks so much for your interest in receiving HOLLA PR! We'd love for you to join our ambassador program first. You'll get 20% off your first order, your own discount code, and 10% commission on every order through it, plus a $25 bonus every 5 orders. 🤍 If your code performs well, we'd love to add you to our PR list for future product drops and launches!
+
+Sign up here: holla-hair.com/pages/holla-circle ✨</pre></div>
+    </div>
+  </section>
+
+  <section id="r3">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2 class="sec-title">Ambassador opportunity</h2>
+      <span class="when">from @stasshsociety</span>
+    </div>
+
+    <h3>The video</h3>
+
+    <div class="ref">
+      <div class="ref-head"><b>On-screen text</b></div>
+      <div class="ref-body"><pre>AMBASSADOR OPPORTUNITY
+
+follow us
+comment interested
+send this to our DMs</pre></div>
+    </div>
+
+    <ul class="points">
+      <li>The simplest of the three. One styling shot with the text over it.</li>
+      <li>Tool visible and in use in the first frame.</li>
+      <li>Bring the three lines in one after another, not all together.</li>
+      <li><strong>Don't overproduce this one.</strong> Plain is the point, we want to know whether the plainest version works as well as the produced ones.</li>
+    </ul>
+
+    <h3>The caption</h3>
+
+    <div class="ref">
+      <div class="ref-body"><pre>AMBASSADOR OPPORTUNITY
+
+- follow us
+- comment interested
+- send this to our DMs
+
+We will reach back out!
+
+#ambassador #microinfluencer #hairathome #salonhairathome #hairtools #curlinghair #blowoutathome</pre></div>
+    </div>
+
+    <h3>The automation</h3>
+    <p>Two messages. This is the best-written DM of the three, because it says why the programme exists before it offers anything.</p>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 1</b> <span>instantly</span></div>
+      <div class="ref-body"><pre>Hey hon! 🤍
+
+We're a small brand doing things a little differently when it comes to marketing. HOLLA grew because hairstylists told each other about it, and we'd rather put the money towards the women actually recommending us, so we've opened up an Ambassador program.
+
+You get 20% off your own first tool and your own code to pass on. Your friends get 10% off, you earn 10% on every order through it, and a $25 bonus every 5 orders. Five friends is about $100 back.
+
+No posting required. Just hand the code over when someone asks how you did your hair.
+
+Is this something you're interested in 👇
+
+[button: I'm interested]</pre></div>
+    </div>
+
+    <div class="ref">
+      <div class="ref-head"><b>Message 2</b> <span>when she taps the button</span></div>
+      <div class="ref-body"><pre>Yay, so glad to hear it. Below is the sign up link for our Ambassador Program
+
+[button: Sign me up]
+-> holla-hair.com/pages/holla-circle</pre></div>
+    </div>
+  </section>
+
+  <section id="r4">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2 class="sec-title">Two things that apply to all three</h2>
+    </div>
+
+    <div class="warn">
+      <p class="warn-label">Ask for the follow. Never block on it.</p>
+      <p>If she doesn't follow us, put this line on top of the first message and <strong>send the message anyway</strong>:</p>
+      <p><em>"Quick thing, follow @hollahair.pro so my messages reach you instead of landing in your requests folder 🤍"</em></p>
+    </div>
+
+    <div class="warn">
+      <p class="warn-label">Test it yourself before it goes live</p>
+      <p>Comment the trigger word from a phone that doesn't follow us and check the DM actually arrives. Then check again once a week while it runs.</p>
+      <p>@cocolifestyleresort skipped this. Their reel has <strong>20,800 comments</strong> and the automation never replies.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Each one is copied from that brand's real reel and real automated DM, collected Sept 7 2026. Background: <a class="src" href="../reel-funnel/">the research</a> · <a class="src" href="../reel-plan/">the fuller plan</a> · <a class="src" href="../">September Marketing Sync</a>.</p>
+  </footer>
+
+</div>
+</body>
+</html>
